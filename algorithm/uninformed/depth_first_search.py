@@ -15,6 +15,7 @@ class DepthFirstTreeSearch(SearchAlgorithm):
 
         return None
 
+depth_first_tree_search = DepthFirstTreeSearch()
 
 class DepthFirstGraphSearch(SearchAlgorithm):
     def search(self, initial_state: State, problem: Problem) -> Solution | None:
@@ -31,3 +32,5 @@ class DepthFirstGraphSearch(SearchAlgorithm):
                             if child.state not in explored and child not in frontier)
 
         return None
+
+depth_first_graph_search = DepthFirstGraphSearch()
