@@ -1,8 +1,12 @@
-from problems.problem import Problem, State, Action
+from problems.problem import Problem, Action
 
 
 class Node:
-    def __init__(self, state: State, parent: 'Node' = None, action: Action = None, path_cost: float = 0):
+    def __init__(self,
+                 state,
+                 parent: 'Node' = None,
+                 action: Action = None,
+                 path_cost: float = 0):
         self.state = state
         self.parent = parent
         self.action = action
@@ -39,12 +43,12 @@ class Solution:
 
 
 class SearchAlgorithm:
-    def search(self, initial_state: State, problem: Problem) -> Solution:
+    def search(self, initial_state, problem: Problem) -> Solution:
         raise NotImplementedError
 
 
 class Solver:
-    def __init__(self, problem: Problem, initial: State, algorithm: SearchAlgorithm = None):
+    def __init__(self, problem: Problem, initial, algorithm: SearchAlgorithm = None):
         self.problem = problem
         self.initial_state = initial
         self.algorithm = algorithm

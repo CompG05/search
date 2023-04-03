@@ -1,19 +1,4 @@
-from problems.problem import State, Action
-
-
-class MCState(State):
-    def __init__(self, data: tuple[int, int, int, int]):
-        m1, c1, m2, c2 = data
-        self.missionaries = m1 + m2
-        self.cannibals = c1 + c2
-        super().__init__(data)
-
-    def is_goal(self) -> bool:
-        return self.data == (0, 0, self.missionaries, self.cannibals)
-
-    def is_valid(self) -> bool:
-        m1, c1, m2, c2 = self.data
-        return m1 >= c1 and m2 >= c2
+from problems.problem import Action, Problem
 
 
 class MCAction(Action):
@@ -23,13 +8,44 @@ class MCAction(Action):
         self.c = c
         super().__init__(cost)
 
-    def execute(self, state: State) -> State:
-        m1, c1, m2, c2 = state.data
-        return MCState((m1 - self.m, c1 - self.c, m2 + self.m, c2 + self.c))
+    def execute(self, state) -> object:
+        m1, c1, m2, c2 = state
+        return m1 - self.m, c1 - self.c, m2 + self.m, c2 + self.c
 
-    def is_enabled(self, state: State) -> bool:
-        m1, c1, m2, c2 = state.data
+    def is_enabled(self, state) -> bool:
+        m1, c1, m2, c2 = state
         enough_to_move = m1 >= self.m and c1 >= self.c
         # there will never be more cannibals than missionaries on either side
-        can_move = (m1 - self.m >= c1 - self.c or m1 - self.m == 0) and (m2 + self.m >= c2 + self.c or m2 + self.m == 0)
+        can_move = (m1 - self.m >= c1 - self.c or m1 - self.m == 0) \
+            and (m2 + self.m >= c2 + self.c or m2 + self.m == 0)
         return enough_to_move and can_move
+
+    def __hash__(self):
+        return hash((self.m, self.c))
+
+    def __eq__(self, other):
+        return self.m == other.m and self.c == other.c
+
+    def __repr__(self):
+        return f'<{self.m}M,{self.c}C>'
+
+
+class MCProblem(Problem):
+    def __init__(self, initial):
+        m1, c1, m2, c2 = initial
+        self.missionaries = m1 + m2
+        self.cannibals = c1 + c2
+        self.actions = []
+
+        for m in range(3):
+            for c in range(3):
+                if m + c in [1, 2]: # Boat carries 1 or 2 people
+                    self.actions.append(MCAction(m, c))
+
+        super().__init__(initial)
+
+    def is_goal(self, state) -> bool:
+        return state == (0, 0, self.missionaries, self.cannibals)
+
+    def enabled_actions(self, state) -> list[Action]:
+        return [action for action in self.actions if action.is_enabled(state)]
