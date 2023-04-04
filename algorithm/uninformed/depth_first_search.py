@@ -6,7 +6,7 @@ class DepthFirstTreeSearch(SearchAlgorithm):
     def search(self,
                initial_state,
                problem: Problem) -> Solution | None:
-        initial_node = Node(initial_state)
+        initial_node = Node(problem.initial_state)
         frontier = [initial_node]
 
         while frontier:
