@@ -1,3 +1,20 @@
+class State:
+    def __init__(self, data):
+        self.data = data
+
+    def is_goal(self) -> bool:
+        raise NotImplementedError
+
+    def is_valid(self) -> bool:
+        raise NotImplementedError
+
+    def __eq__(self, other: 'State'):
+        return self.data == other.data and isinstance(other, type(self))
+
+    def __hash__(self):
+        return hash(self.data)
+
+
 class Action:
     def __init__(self, cost=1):
         self.cost = cost

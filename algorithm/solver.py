@@ -50,14 +50,10 @@ class SearchAlgorithm:
 class Solver:
     def __init__(self, problem: Problem, initial, algorithm: SearchAlgorithm = None):
         self.problem = problem
-        self.initial_state = initial
         self.algorithm = algorithm
 
     def set_algorithm(self, algorithm: SearchAlgorithm):
         self.algorithm = algorithm
 
     def solve(self) -> Solution:
-        if not self.algorithm:
-            raise ValueError("No algorithm specified")
-
-        return self.algorithm.search(self.initial_state, self.problem)
+        return self.algorithm.search(self.problem)
