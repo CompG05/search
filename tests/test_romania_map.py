@@ -22,9 +22,20 @@ p = GraphProblem(romania_map, 'Arad', 'Bucharest')
 
 
 def test_enabled_actions():
-    expected = [Transition(romania_map, 'Sibiu', dest)
+    expected = [Edge(romania_map, 'Sibiu', dest)
                 for dest in ['Arad', 'Oradea', 'Fagaras', 'Rimnicu']]
     actual = p.enabled_actions('Sibiu')
 
+    print(actual)
     assert len(actual) == len(expected) \
-        and all([a in expected for a in actual])
+           and all([a in expected for a in actual])
+
+
+def test_solution():
+    solver = Solver(p, breadth_first_tree_search)
+    expected = ['Arad', 'Sibiu', 'Fagaras', 'Bucharest']
+    solution = solver.solve()
+    print(solution)
+    actual = solution.path
+
+    assert actual == expected
