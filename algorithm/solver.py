@@ -43,11 +43,25 @@ class Node:
 
 
 class Solution:
-    def __init__(self, node: Node):
-        self.final_state = node.state
-        self.path = [node.state for node in node.path()]
-        self.path_cost = node.path_cost
-        self.action_sequence = node.solution()
+    def __init__(self, node: Node | None, algorithm_name: str):
+        if not node:
+            self.final_state = None
+            self.path = []
+            self.path_cost = []
+            self.action_sequence = []
+        else:
+            self.final_state = node.state
+            self.path = [node.state for node in node.path()]
+            self.path_cost = node.path_cost
+            self.action_sequence = node.solution()
+        self.algorithm_name = algorithm_name
+
+    def __str__(self):
+        return f"""
+algorithm: {self.algorithm_name}
+final state: {self.final_state}
+path cost: {self.path_cost}
+action sequence: {self.action_sequence}"""
 
 
 class SearchAlgorithm:
@@ -56,7 +70,7 @@ class SearchAlgorithm:
 
 
 class Solver:
-    def __init__(self, problem: Problem, algorithm: SearchAlgorithm = None):
+    def __init__(self, problem: Problem, algorithm: SearchAlgorithm):
         self.problem = problem
         self.algorithm = algorithm
 
@@ -64,4 +78,5 @@ class Solver:
         self.algorithm = algorithm
 
     def solve(self) -> Solution:
-        return self.algorithm.search(self.problem)
+        node = self.algorithm.search(self.problem)
+        return Solution(node, self.algorithm.__class__.__name__)

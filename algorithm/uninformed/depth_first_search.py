@@ -1,16 +1,16 @@
 from problems.problem import Problem
-from ..solver import SearchAlgorithm, Solution, Node
+from ..solver import SearchAlgorithm, Node
 
 
 class DepthFirstTreeSearch(SearchAlgorithm):
-    def search(self, problem: Problem) -> Solution | None:
+    def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
         frontier = [initial_node]
 
         while frontier:
             node = frontier.pop()
             if problem.is_goal(node.state):
-                return Solution(node)
+                return node
             frontier.extend(node.expand(problem))
 
         return None
@@ -20,7 +20,7 @@ depth_first_tree_search = DepthFirstTreeSearch()
 
 
 class DepthFirstGraphSearch(SearchAlgorithm):
-    def search(self, problem: Problem) -> Solution | None:
+    def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
         frontier = [initial_node]
 
@@ -28,7 +28,7 @@ class DepthFirstGraphSearch(SearchAlgorithm):
         while frontier:
             node = frontier.pop()
             if problem.is_goal(node.state):
-                return Solution(node)
+                return node
             explored.add(node.state)
             frontier.extend(child for child in node.expand(problem)
                             if child.state not in explored
