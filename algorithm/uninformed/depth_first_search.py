@@ -3,9 +3,7 @@ from ..solver import SearchAlgorithm, Solution, Node
 
 
 class DepthFirstTreeSearch(SearchAlgorithm):
-    def search(self,
-               initial_state,
-               problem: Problem) -> Solution | None:
+    def search(self, problem: Problem) -> Solution | None:
         initial_node = Node(problem.initial_state)
         frontier = [initial_node]
 
@@ -22,8 +20,8 @@ depth_first_tree_search = DepthFirstTreeSearch()
 
 
 class DepthFirstGraphSearch(SearchAlgorithm):
-    def search(self, initial_state, problem: Problem) -> Solution | None:
-        initial_node = Node(initial_state)
+    def search(self, problem: Problem) -> Solution | None:
+        initial_node = Node(problem.initial_state)
         frontier = [initial_node]
 
         explored = set()
