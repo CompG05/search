@@ -4,7 +4,7 @@ from problems.problem import Problem
 from algorithm.solver import SearchAlgorithm, Solution, Node
 
 
-class BreadthFirstTreeSearch(SearchAlgorithm):
+class BreadthFirstSearch(SearchAlgorithm):
     def search(self,
                problem: Problem) -> Solution | None:
         initial_node = Node(problem.initial_state)
@@ -19,4 +19,4 @@ class BreadthFirstTreeSearch(SearchAlgorithm):
         return None
 
 
-breadth_first_tree_search = BreadthFirstTreeSearch()
+breadth_first_search = BreadthFirstSearch()

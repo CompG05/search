@@ -1,9 +1,9 @@
 from algorithm.solver import Solver
 from problems.missionaries_cannibals import MCAction, MCProblem
-from algorithm.uninformed.depth_first_search import depth_first_graph_search
+from algorithm.uninformed.breadth_first_search import breadth_first_search
 from algorithm.uninformed.depth_first_search import depth_first_tree_search
 
-first_class_searchers = [depth_first_tree_search, depth_first_graph_search]
+first_class_searchers = [depth_first_tree_search, breadth_first_search]
 
 initial_state = (3, 3, 0, 0)
 M_action = MCAction(1, 0)
@@ -45,7 +45,7 @@ def test_mc_actions_execute():
 
 def test_mc_solving():
     m1, c1, m2, c2 = initial_state
-    solver = Solver(mc_problem, initial_state)
+    solver = Solver(mc_problem)
     for searcher in first_class_searchers:
         solver.set_algorithm(searcher)
         solution = solver.solve()

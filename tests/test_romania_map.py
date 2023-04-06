@@ -1,6 +1,6 @@
 from algorithm.solver import Solver
-from algorithm.uninformed.breadth_first_search import BreadthFirstSearch
-from problems.graph_problem import GraphProblem, Transition, GraphNode
+from algorithm.uninformed.breadth_first_search import breadth_first_search
+from problems.graph_problem import GraphProblem, Edge
 from structures.graph import UndirectedGraph
 
 romania_map = UndirectedGraph(dict(
@@ -32,7 +32,7 @@ def test_enabled_actions():
 
 
 def test_solution():
-    solver = Solver(p, breadth_first_tree_search)
+    solver = Solver(p, breadth_first_search)
     expected = ['Arad', 'Sibiu', 'Fagaras', 'Bucharest']
     solution = solver.solve()
     print(solution)
