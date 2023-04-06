@@ -52,10 +52,4 @@ def test_solution(algorithm):
     solver = Solver(p, algorithm)
     solution = solver.solve()
 
-    print("algorithm: ", algorithm.__class__.__name__)
-    print("final state: ", solution.final_state)
-    print("path: ", solution.path)
-    print("action sequence: ", solution.action_sequence)
-    print("path cost: ", solution.path_cost)
     assert solution.final_state == NPuzzleState(tuple(range(0, size)))
-    assert False
