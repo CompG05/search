@@ -22,6 +22,14 @@ class Node:
                      path_cost=self.path_cost + action.cost)
                 for action in problem.enabled_actions(self.state)]
 
+    def in_path(self, state) -> bool:
+        node = self.parent
+        while node:
+            if node.state == state:
+                return True
+            node = node.parent
+        return False
+
     def path(self) -> list['Node']:
         node = self
         reversed_path = []
@@ -43,12 +51,12 @@ class Solution:
 
 
 class SearchAlgorithm:
-    def search(self, initial_state, problem: Problem) -> Solution:
+    def search(self, problem: Problem) -> Solution:
         raise NotImplementedError
 
 
 class Solver:
-    def __init__(self, problem: Problem, initial, algorithm: SearchAlgorithm = None):
+    def __init__(self, problem: Problem, algorithm: SearchAlgorithm = None):
         self.problem = problem
         self.algorithm = algorithm
 
