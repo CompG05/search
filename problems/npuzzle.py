@@ -102,7 +102,7 @@ class DownMove(SwappableAction):
 
 class NPuzzleProblem(Problem):
     def __init__(self, initial: NPuzzleState | tuple[int, ...]):
-        self.actions = [UpMove(),  RightMove(), DownMove(), LeftMove()]
+        self.actions = [UpMove(),  LeftMove(), DownMove(), RightMove()]
         if isinstance(initial, tuple):
             initial = NPuzzleState(initial)
         super().__init__(initial)
