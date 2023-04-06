@@ -16,7 +16,7 @@ class Node:
             self.depth = parent.depth + 1
 
     def expand(self, problem: Problem) -> list['Node']:
-        return [Node(action.execute(self.state),
+        return [Node(problem.result(self.state, action),
                      parent=self,
                      action=action,
                      path_cost=self.path_cost + action.cost)
@@ -65,7 +65,7 @@ action sequence: {self.action_sequence}"""
 
 
 class SearchAlgorithm:
-    def search(self, problem: Problem) -> Solution:
+    def search(self, problem: Problem) -> Node | None:
         raise NotImplementedError
 
 
