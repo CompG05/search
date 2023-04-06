@@ -41,5 +41,8 @@ class Problem:
     def is_goal(self, state) -> bool:
         return state.is_goal()
 
+    def result(self, state, action: Action) -> object:
+        return action.execute(state)
+
     def enabled_actions(self, state) -> list[Action]:
         raise NotImplementedError
