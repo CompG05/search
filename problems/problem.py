@@ -46,3 +46,28 @@ class Problem:
 
     def enabled_actions(self, state) -> list[Action]:
         raise NotImplementedError
+
+
+class InformedProblem(Problem):
+    def __init__(self, problem):
+        self.problem = problem
+        self.nodes = 1
+        self.visited = 0
+        self.max_nodes_in_frontier = 0
+        super().__init__(problem.initial_state)
+
+    @property
+    def nodes_in_frontier(self):
+        return self.nodes - self.visited
+
+    def is_goal(self, state):
+        self.visited += 1
+        return self.problem.is_goal(state)
+
+    def result(self, state, action):
+        self.nodes += 1
+        self.max_nodes_in_frontier = max((self.max_nodes_in_frontier, self.nodes_in_frontier))
+        return self.problem.result(state, action)
+
+    def enabled_actions(self, state) -> list[Action]:
+        return self.problem.enabled_actions(state)
