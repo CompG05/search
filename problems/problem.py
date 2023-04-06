@@ -34,11 +34,12 @@ class Action:
 
 class Problem:
     """Abstract class for a formal representation of a search problem"""
+
     def __init__(self, initial):
         self.initial_state = initial
 
     def is_goal(self, state) -> bool:
-        raise NotImplementedError
+        return state.is_goal()
 
     def enabled_actions(self, state) -> list[Action]:
         raise NotImplementedError
