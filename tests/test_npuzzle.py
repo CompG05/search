@@ -29,6 +29,10 @@ can_move_config = [
 ]
 
 
+@pytest.mark.parametrize("actual, expected", can_move_config)
+def test_can_move(actual, expected):
+    assert actual == expected
+
 
 state_is_goal_config = [
     (NPuzzleState((4, 7, 5, 6, 3, 8, 2, 1, 0)), False),

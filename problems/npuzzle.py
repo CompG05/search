@@ -7,6 +7,7 @@ class NPuzzleState(State):
         self.size = len(data)
         self.dimension = int(math.sqrt(self.size))
         super().__init__(data)
+        self.blank_index = self.find_blank_square()
 
     def is_goal(self) -> bool:
         return self.data == tuple(range(0, self.size))
