@@ -4,12 +4,11 @@ from algorithm.solver import Solver
 from algorithm.uninformed.breadth_first_search import breadth_first_search
 from algorithm.uninformed.depth_first_search import depth_first_graph_search
 
-
 initial = (
-        1, 4, 2,
-        6, 5, 0,
-        7, 3, 8
-        )
+    1, 4, 2,
+    6, 5, 0,
+    7, 3, 8
+)
 
 p = NPuzzleProblem(initial)
 
@@ -17,6 +16,18 @@ L = LeftMove()
 R = RightMove()
 U = UpMove()
 D = DownMove()
+
+can_move_config = [
+    (NPuzzleState((1, 2, 3, 4, 0, 5, 6, 7, 8)).can_move_up(), True),
+    (NPuzzleState((0, 1, 2, 3, 4, 5, 6, 7, 8)).can_move_up(), False),
+    (NPuzzleState((1, 2, 3, 4, 0, 5, 6, 7, 8)).can_move_left(), True),
+    (NPuzzleState((0, 1, 2, 3, 4, 5, 6, 7, 8)).can_move_left(), False),
+    (NPuzzleState((1, 2, 3, 4, 0, 5, 6, 7, 8)).can_move_right(), True),
+    (NPuzzleState((1, 2, 3, 4, 5, 6, 7, 8, 0)).can_move_right(), False),
+    (NPuzzleState((1, 2, 3, 4, 0, 5, 6, 7, 8)).can_move_down(), True),
+    (NPuzzleState((1, 2, 3, 4, 5, 6, 7, 8, 0)).can_move_down(), False)
+]
+
 
 
 state_is_goal_config = [
