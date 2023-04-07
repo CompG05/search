@@ -60,6 +60,15 @@ class InformedProblem(Problem):
     def nodes_in_frontier(self):
         return self.nodes - self.visited
 
+    @property
+    def branching_factor(self):
+        return (self.nodes - 1) / self.visited
+
+    def reset(self):
+        self.nodes = 1
+        self.visited = 0
+        self.max_nodes_in_frontier = 0
+
     def is_goal(self, state):
         self.visited += 1
         return self.problem.is_goal(state)
@@ -70,4 +79,5 @@ class InformedProblem(Problem):
         return self.problem.result(state, action)
 
     def enabled_actions(self, state) -> list[Action]:
-        return self.problem.enabled_actions(state)
+        actions = self.problem.enabled_actions(state)
+        return actions
