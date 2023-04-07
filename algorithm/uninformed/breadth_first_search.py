@@ -57,5 +57,4 @@ class BreadthFirstSearchAcyclic(SearchAlgorithm):
         return None
 
 
-
-breadth_first_search = BreadthFirstSearch()
+breadth_first_search_acyclic = BreadthFirstSearchAcyclic()
