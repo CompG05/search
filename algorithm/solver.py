@@ -41,6 +41,9 @@ class Node:
     def solution(self) -> list[Action]:
         return [node.action for node in self.path()[1:]]
 
+    def __lt__(self, other):
+        return self.path_cost < other.path_cost
+
 
 class Solution:
     def __init__(self, node: Node | None, algorithm_name: str):
