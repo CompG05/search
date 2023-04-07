@@ -1,9 +1,9 @@
 from algorithm.solver import Solver
 from problems.missionaries_cannibals import MCAction, MCProblem
 from algorithm.uninformed.breadth_first_search import breadth_first_search
-from algorithm.uninformed.depth_first_search import depth_first_tree_search
+from algorithm.uninformed.depth_first_search import depth_first_search
 
-first_class_searchers = [depth_first_tree_search, breadth_first_search]
+first_class_searchers = [depth_first_search, breadth_first_search]
 
 initial_state = (3, 3, 0, 0)
 M_action = MCAction(1, 0)
