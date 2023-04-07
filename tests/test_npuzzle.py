@@ -2,7 +2,6 @@ import pytest
 from problems.npuzzle import NPuzzleProblem, NPuzzleState, RightMove, LeftMove, UpMove, DownMove
 from algorithm.solver import Solver
 from algorithm.uninformed.breadth_first_search import breadth_first_search
-from algorithm.uninformed.depth_first_search import depth_first_graph_search
 
 initial = (
     1, 4, 2,
