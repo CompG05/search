@@ -48,7 +48,7 @@ class Problem:
         raise NotImplementedError
 
 
-class InformedProblem(Problem):
+class InstrumentedProblem(Problem):
     def __init__(self, problem):
         self.problem = problem
         self.nodes = 1

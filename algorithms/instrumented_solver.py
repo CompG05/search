@@ -1,12 +1,12 @@
 import sys
 import time
 
-from algorithm.solver import Solution, Node, Solver, SearchAlgorithm
-from problems.problem import Problem, InformedProblem
+from algorithms.solver import Solution, Node, Solver, SearchAlgorithm
+from problems.problem import Problem, InstrumentedProblem
 
 
-class InformedSolution(Solution):
-    def __init__(self, node: Node | None, algorithm_name: str, dtime, problem: InformedProblem):
+class InstrumentedSolution(Solution):
+    def __init__(self, node: Node | None, algorithm_name: str, dtime, problem: InstrumentedProblem):
         super().__init__(node, algorithm_name)
         self.problem = problem
         self.node_size = sys.getsizeof(node)
@@ -25,12 +25,12 @@ max memory usage: {self.problem.max_nodes_in_frontier * self.node_size} bytes"""
 class InformedSolver(Solver):
     def __init__(self, problem: Problem, algorithm: SearchAlgorithm):
         super().__init__(problem, algorithm)
-        self.problem = InformedProblem(problem)
+        self.problem = InstrumentedProblem(problem)
 
-    def solve(self) -> InformedSolution:
+    def solve(self) -> InstrumentedSolution:
         self.problem.reset()
         before = time.time()
         node = self.algorithm.search(self.problem)
         after = time.time()
 
-        return InformedSolution(node, self.algorithm.__class__.__name__, after - before, self.problem)
+        return InstrumentedSolution(node, self.algorithm.__class__.__name__, after - before, self.problem)

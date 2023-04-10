@@ -1,4 +1,4 @@
-from algorithm.solver import SearchAlgorithm, Node
+from algorithms.solver import SearchAlgorithm, Node
 
 
 class DepthLimitedSearch(SearchAlgorithm):

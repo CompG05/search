@@ -1,7 +1,7 @@
-from algorithm.solver import Solver
+from algorithms.solver import Solver
 from problems.missionaries_cannibals import MCAction, MCProblem
-from algorithm.uninformed.breadth_first_search import breadth_first_search
-from algorithm.uninformed.depth_first_search import depth_first_search
+from algorithms.uninformed.breadth_first_search import breadth_first_search
+from algorithms.uninformed.depth_first_search import depth_first_search
 
 first_class_searchers = [depth_first_search, breadth_first_search]
 

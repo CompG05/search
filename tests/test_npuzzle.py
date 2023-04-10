@@ -1,7 +1,7 @@
 import pytest
 from problems.npuzzle import NPuzzleProblem, NPuzzleState, RightMove, LeftMove, UpMove, DownMove
-from algorithm.solver import Solver
-from algorithm.uninformed.breadth_first_search import breadth_first_search
+from algorithms.solver import Solver
+from algorithms.uninformed.breadth_first_search import breadth_first_search
 
 initial = (
     1, 4, 2,
@@ -60,7 +60,7 @@ def test_enabled_actions(state, expected):
 algorithms = [breadth_first_search]
 
 
-@pytest.mark.parametrize("algorithm", algorithms)
+@pytest.mark.parametrize("algorithms", algorithms)
 def test_solution(algorithm):
     size = p.initial_state.size
     solver = Solver(p, algorithm)

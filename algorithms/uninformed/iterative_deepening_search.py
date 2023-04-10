@@ -1,5 +1,5 @@
-from algorithm.solver import SearchAlgorithm, Node
-from algorithm.uninformed.depth_limited_search import DepthLimitedSearch
+from algorithms.solver import SearchAlgorithm, Node
+from algorithms.uninformed.depth_limited_search import DepthLimitedSearch
 from problems.problem import Problem
 
 

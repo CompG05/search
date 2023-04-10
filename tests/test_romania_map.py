@@ -1,5 +1,5 @@
-from algorithm.solver import Solver
-from algorithm.uninformed.breadth_first_search import breadth_first_search
+from algorithms.solver import Solver
+from algorithms.uninformed.breadth_first_search import breadth_first_search
 from problems.graph_problem import GraphProblem, Edge
 from structures.graph import UndirectedGraph
 

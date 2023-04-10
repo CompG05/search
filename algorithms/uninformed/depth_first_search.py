@@ -1,16 +1,14 @@
-from collections import deque
-
 from problems.problem import Problem
-from algorithm.solver import SearchAlgorithm, Node
+from algorithms.solver import SearchAlgorithm, Node
 
 
-class BreadthFirstSearch(SearchAlgorithm):
+class DepthFirstSearch(SearchAlgorithm):
     def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
-        frontier = deque([initial_node])
+        frontier = [initial_node]
 
         while frontier:
-            node = frontier.popleft()
+            node = frontier.pop()
             if problem.is_goal(node.state):
                 return node
             frontier.extend(node.expand(problem))
@@ -18,17 +16,17 @@ class BreadthFirstSearch(SearchAlgorithm):
         return None
 
 
-breadth_first_search = BreadthFirstSearch()
+depth_first_search = DepthFirstSearch()
 
 
-class BreadthFirstGraphSearch(SearchAlgorithm):
+class DepthFirstGraphSearch(SearchAlgorithm):
     def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
-        frontier = deque([initial_node])
+        frontier = [initial_node]
 
         explored = set()
         while frontier:
-            node = frontier.popleft()
+            node = frontier.pop()
             if problem.is_goal(node.state):
                 return node
             explored.add(node.state)
@@ -39,22 +37,23 @@ class BreadthFirstGraphSearch(SearchAlgorithm):
         return None
 
 
-breadth_first_graph_search = BreadthFirstGraphSearch()
+depth_first_graph_search = DepthFirstGraphSearch()
 
 
-class BreadthFirstSearchAcyclic(SearchAlgorithm):
+class DepthFirstSearchAcyclic(SearchAlgorithm):
     def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
-        frontier = deque([initial_node])
+        frontier = [initial_node]
 
         while frontier:
-            node = frontier.popleft()
+            node = frontier.pop()
             if problem.is_goal(node.state):
                 return node
-            frontier.extend(child for child in node.expand(problem)
-                            if not node.in_path(child.state))
+            if not node.in_path(node.state):
+                frontier.extend(child for child in node.expand(problem)
+                                if not node.in_path(child.state))
 
         return None
 
 
-breadth_first_search_acyclic = BreadthFirstSearchAcyclic()
+depth_first_search_acyclic = DepthFirstSearch()
