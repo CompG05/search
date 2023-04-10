@@ -1,4 +1,6 @@
 import math
+
+from algorithms.solver import Node
 from problems.problem import State, Action, Problem
 
 
@@ -45,7 +47,15 @@ class NPuzzleState(State):
         return index + self.dimension
 
     def is_valid(self) -> bool:
-        return NotImplementedError
+        return self.is_solvable() and float.is_integer(math.sqrt(self.size))
+
+    def is_solvable(self) -> bool:
+        inversions = 0
+        for i in range(self.size):
+            for j in range(i + 1, self.size):
+                if self.data[i] > self.data[j] != 0:
+                    inversions += 1
+        return inversions % 2 == 0
 
 
 class SwappableAction(Action):
@@ -110,3 +120,10 @@ class NPuzzleProblem(Problem):
 
     def enabled_actions(self, state: NPuzzleState) -> list[SwappableAction]:
         return [action for action in self.actions if action.is_enabled(state)]
+
+
+def h_wrong_positions(node) -> float:
+    state = node.state
+    return sum(1 for i, j in zip(state.data, range(0, state.size)) if i != j)
+
+
