@@ -1,7 +1,7 @@
 import heapq
 from typing import Callable
 
-from algorithm.solver import SearchAlgorithm, Node
+from algorithms.solver import SearchAlgorithm, Node
 from problems.problem import Problem
 
 
@@ -17,12 +17,15 @@ class BestFirstSearch(SearchAlgorithm):
         initial_node = Node(problem.initial_state)
         frontier = [(self.heuristic(initial_node), initial_node)]
         heapq.heapify(frontier)
+        reached = {problem.initial_state: initial_node}
 
         while frontier:
             _, node = heapq.heappop(frontier)
             if problem.is_goal(node.state):
                 return node
             for child in node.expand(problem):
-                heapq.heappush(frontier, (self.heuristic(child), child))
+                if child.state not in reached or child.path_cost < reached[child.state].path_cost:
+                    reached[child.state] = child
+                    heapq.heappush(frontier, (self.heuristic(child), child))
 
         return None
