@@ -22,7 +22,7 @@ max memory usage: {self.problem.max_nodes_in_frontier * self.node_size} bytes"""
             % (self.time * 1000, self.problem.branching_factor)
 
 
-class InformedSolver(Solver):
+class InstrumentedSolver(Solver):
     def __init__(self, problem: Problem, algorithm: SearchAlgorithm):
         super().__init__(problem, algorithm)
         self.problem = InstrumentedProblem(problem)
