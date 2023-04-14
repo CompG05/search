@@ -1,7 +1,8 @@
 import pytest
-from problems.npuzzle import NPuzzleProblem, NPuzzleState, RightMove, LeftMove, UpMove, DownMove
+
 from algorithms.solver import Solver
 from algorithms.uninformed.breadth_first_search import breadth_first_search
+from problems.npuzzle import NPuzzleProblem, NPuzzleState, RightMove, LeftMove, UpMove, DownMove
 
 initial = (
     1, 4, 2,

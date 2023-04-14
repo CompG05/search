@@ -1,6 +1,5 @@
 import math
 
-from algorithms.solver import Node
 from problems.problem import State, Action, Problem
 
 
@@ -120,10 +119,3 @@ class NPuzzleProblem(Problem):
 
     def enabled_actions(self, state: NPuzzleState) -> list[SwappableAction]:
         return [action for action in self.actions if action.is_enabled(state)]
-
-
-def h_wrong_positions(node) -> float:
-    state = node.state
-    return sum(1 for i, j in zip(state.data, range(0, state.size)) if i != j)
-
-
