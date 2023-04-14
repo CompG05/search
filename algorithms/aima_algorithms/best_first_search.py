@@ -1,6 +1,6 @@
 import heapq
 
-from algorithms.solver import Node
+from algorithms.search_algorithm import Node
 
 
 def best_first_graph_search(problem, f):

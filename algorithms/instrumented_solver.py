@@ -1,8 +1,9 @@
 import sys
 import time
 
-from algorithms.solver import Solution, Node, Solver, SearchAlgorithm
-from problems.problem import Problem, InstrumentedProblem
+from algorithms.solver import Solution, Solver
+from algorithms.search_algorithm import Node
+from problems.problem import InstrumentedProblem
 
 
 class InstrumentedSolution(Solution):
@@ -23,9 +24,9 @@ max memory usage: {self.problem.max_nodes_in_frontier * self.node_size} bytes"""
 
 
 class InstrumentedSolver(Solver):
-    def __init__(self, problem: Problem, algorithm: SearchAlgorithm):
-        super().__init__(problem, algorithm)
-        self.problem = InstrumentedProblem(problem)
+    def __init__(self, problem: str, algorithm: str, heuristic: str, *args):
+        super().__init__(problem, algorithm, heuristic, *args)
+        self.problem = InstrumentedProblem(self.problem)
 
     def solve(self) -> InstrumentedSolution:
         self.problem.reset()

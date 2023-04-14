@@ -1,4 +1,4 @@
-from problems.problem import State, Action, Problem
+from problems.problem import Action, Problem
 from structures.graph import Graph
 
 

@@ -1,7 +1,7 @@
 from typing import Callable
 
 from algorithms.informed.best_first_search import BestFirstSearch
-from algorithms.solver import Node
+from algorithms.search_algorithm import Node
 
 
 class UniformCostSearch(BestFirstSearch):

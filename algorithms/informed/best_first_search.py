@@ -1,7 +1,7 @@
 import heapq
 from typing import Callable
 
-from algorithms.solver import SearchAlgorithm, Node
+from algorithms.search_algorithm import SearchAlgorithm, Node
 from problems.problem import Problem
 
 

@@ -1,7 +1,7 @@
 from collections import deque
 
+from algorithms.search_algorithm import SearchAlgorithm, Node
 from problems.problem import Problem
-from algorithms.solver import SearchAlgorithm, Node
 
 
 class BreadthFirstSearch(SearchAlgorithm):
