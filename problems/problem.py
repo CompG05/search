@@ -32,6 +32,11 @@ class Action:
         raise NotImplementedError
 
 
+class InvertibleAction(Action):
+    def inverse(self) -> 'InvertibleAction':
+        raise NotImplementedError
+
+
 class Problem:
     """Abstract class for a formal representation of a search problem"""
 
@@ -46,6 +51,18 @@ class Problem:
 
     def enabled_actions(self, state) -> list[Action]:
         raise NotImplementedError
+
+
+class InvertibleProblem(Problem):
+    def __init__(self, initial, goal=None):
+        self.goal = goal
+        super().__init__(initial)
+
+    def is_goal(self, state) -> bool:
+        return state == self.goal
+
+    def inverse(self) -> 'InvertibleProblem':
+        return self.__class__(self.goal, self.initial_state)
 
 
 class InstrumentedProblem(Problem):
@@ -68,6 +85,9 @@ class InstrumentedProblem(Problem):
         self.nodes = 1
         self.visited = 0
         self.max_nodes_in_frontier = 0
+
+    def inverse(self) -> 'InstrumentedProblem':
+        return InstrumentedProblem(self.problem.inverse())
 
     def is_goal(self, state):
         self.visited += 1
