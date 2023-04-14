@@ -1,48 +1,6 @@
-from problems.problem import Problem, Action
-
-
-class Node:
-    def __init__(self,
-                 state,
-                 parent: 'Node' = None,
-                 action: Action = None,
-                 path_cost: float = 0):
-        self.state = state
-        self.parent = parent
-        self.action = action
-        self.path_cost = path_cost
-        self.depth = 0
-        if parent:
-            self.depth = parent.depth + 1
-
-    def expand(self, problem: Problem) -> list['Node']:
-        return [Node(problem.result(self.state, action),
-                     parent=self,
-                     action=action,
-                     path_cost=self.path_cost + action.cost)
-                for action in problem.enabled_actions(self.state)]
-
-    def in_path(self, state) -> bool:
-        node = self.parent
-        while node:
-            if node.state == state:
-                return True
-            node = node.parent
-        return False
-
-    def path(self) -> list['Node']:
-        node = self
-        reversed_path = []
-        while node:
-            reversed_path.append(node)
-            node = node.parent
-        return list(reversed(reversed_path))
-
-    def solution(self) -> list[Action]:
-        return [node.action for node in self.path()[1:]]
-
-    def __lt__(self, other):
-        return self.path_cost < other.path_cost
+from algorithms.search_algorithm import Node
+from factories.algorithm_factory import algorithm_factory
+from factories.problem_factory import problem_factory
 
 
 class Solution:
@@ -67,18 +25,11 @@ path cost: {self.path_cost}
 action sequence: {self.action_sequence}"""
 
 
-class SearchAlgorithm:
-    def search(self, problem: Problem) -> Node | None:
-        raise NotImplementedError
-
-
 class Solver:
-    def __init__(self, problem: Problem, algorithm: SearchAlgorithm):
-        self.problem = problem
-        self.algorithm = algorithm
-
-    def set_algorithm(self, algorithm: SearchAlgorithm):
-        self.algorithm = algorithm
+    def __init__(self, problem: str, algorithm: str, heuristic: str, *args):
+        self.problem, heuristic_factory = problem_factory.create(problem, *args)
+        self.heuristic = heuristic and heuristic_factory.create(heuristic)
+        self.algorithm = algorithm_factory.create(algorithm, self.heuristic)
 
     def solve(self) -> Solution:
         node = self.algorithm.search(self.problem)
