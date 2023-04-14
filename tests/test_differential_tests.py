@@ -1,9 +1,10 @@
 from typing import Callable
 
 import pytest
-from algorithms.informed.best_first_search import BestFirstSearch
+
 from algorithms.aima_algorithms.best_first_search import best_first_graph_search
-from problems.npuzzle import h_wrong_positions, NPuzzleProblem, NPuzzleState
+from algorithms.informed.best_first_search import BestFirstSearch
+from problems.npuzzle import NPuzzleProblem, NPuzzleState
 from utils import generate_npuzzle_states
 
 initial = (
@@ -18,16 +19,20 @@ initial = (
 
 p = NPuzzleProblem(initial)
 
-bfs = BestFirstSearch(h_wrong_positions)
+# bfs = BestFirstSearch(h_wrong_positions)
+bfs = BestFirstSearch(lambda node: node.depth)
 bfs_t = best_first_graph_search
 
 algorithms_config = [
-    # (bfs, bfs_t, s) for s in generate_npuzzle_states(9, 8)
-    (bfs, bfs_t, NPuzzleState((3, 0, 2, 5, 4, 8, 7, 6, 1)))
+    (bfs, bfs_t, s) for s in generate_npuzzle_states(9, 1000)
 ]
 
 
 @pytest.mark.parametrize("ours, theor, state", algorithms_config)
 def test_theoretical_vs_ours(ours: BestFirstSearch, theor: Callable, state):
     p.initial_state = state
-    assert ours.search(p).solution() == theor(p, h_wrong_positions).solution()
+    our_solution_node = ours.search(p)
+    other_solution_node = theor(p, lambda node: node.depth)
+    print("our path cost: ", our_solution_node.path_cost, " ", len(our_solution_node.solution()))
+    print("other path cost: ", other_solution_node.path_cost, " ", len(other_solution_node.solution()))
+    assert our_solution_node.solution() == other_solution_node.solution()
