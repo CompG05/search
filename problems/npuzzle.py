@@ -1,10 +1,10 @@
 import math
 
-from problems.problem import State, Action, Problem
+from problems.problem import State, InvertibleAction, InvertibleProblem
 
 
 class NPuzzleState(State):
-    def __init__(self, data: tuple[int, ...]):
+    def __init__(self, data: tuple):
         self.size = len(data)
         self.dimension = int(math.sqrt(self.size))
         super().__init__(data)
@@ -18,9 +18,6 @@ class NPuzzleState(State):
 
     def can_move_left(self) -> bool:
         return self.blank_index % self.dimension != 0
-
-    def __repr__(self):
-        return str(self.data)
 
     @staticmethod
     def get_left(index: int) -> int:
@@ -56,8 +53,11 @@ class NPuzzleState(State):
                     inversions += 1
         return inversions % 2 == 0
 
+    def __repr__(self):
+        return str(self.data)
 
-class SwappableAction(Action):
+
+class SwappableAction(InvertibleAction):
     @staticmethod
     def swap(state: NPuzzleState, i: int, j: int) -> NPuzzleState:
         board = list(state.data)
@@ -73,6 +73,9 @@ class SwappableAction(Action):
     def __repr__(self):
         return self.__class__.__name__[0]
 
+    def inverse(self) -> 'SwappableAction':
+        raise NotImplementedError
+
 
 class LeftMove(SwappableAction):
     def execute(self, state: NPuzzleState) -> NPuzzleState:
@@ -81,6 +84,9 @@ class LeftMove(SwappableAction):
 
     def is_enabled(self, state: NPuzzleState) -> bool:
         return state.can_move_left()
+
+    def inverse(self) -> 'SwappableAction':
+        return RightMove()
 
 
 class RightMove(SwappableAction):
@@ -91,6 +97,9 @@ class RightMove(SwappableAction):
     def is_enabled(self, state: NPuzzleState) -> bool:
         return state.can_move_right()
 
+    def inverse(self) -> 'SwappableAction':
+        return LeftMove()
+
 
 class UpMove(SwappableAction):
     def execute(self, state: NPuzzleState) -> NPuzzleState:
@@ -99,6 +108,9 @@ class UpMove(SwappableAction):
 
     def is_enabled(self, state: NPuzzleState) -> bool:
         return state.can_move_up()
+
+    def inverse(self) -> 'SwappableAction':
+        return DownMove()
 
 
 class DownMove(SwappableAction):
@@ -109,13 +121,16 @@ class DownMove(SwappableAction):
     def is_enabled(self, state: NPuzzleState) -> bool:
         return state.can_move_down()
 
+    def inverse(self) -> 'SwappableAction':
+        return UpMove()
 
-class NPuzzleProblem(Problem):
-    def __init__(self, initial: NPuzzleState | tuple[int, ...]):
+
+class NPuzzleProblem(InvertibleProblem):
+    def __init__(self, initial: tuple, goal: tuple = None):
         self.actions = [UpMove(),  LeftMove(), DownMove(), RightMove()]
         if isinstance(initial, tuple):
             initial = NPuzzleState(initial)
-        super().__init__(initial)
+        super().__init__(initial, goal or NPuzzleState(tuple(range(0, initial.size))))
 
     def enabled_actions(self, state: NPuzzleState) -> list[SwappableAction]:
         return [action for action in self.actions if action.is_enabled(state)]
