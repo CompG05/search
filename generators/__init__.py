@@ -1,0 +1,1 @@
+from generators.npuzzle import generate_npuzzle_state
