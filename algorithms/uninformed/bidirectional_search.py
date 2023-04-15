@@ -11,10 +11,18 @@ def join_nodes(d: str, node: Node, other_node: Node):
     else:
         f_node, b_node = other_node, node
 
+    # the first node has the same state as f_node
+    b_path = list(reversed(b_node.path()))[1:]
     last_node = f_node
+    last_action = b_node.action
 
-    for n in list(reversed(b_node.path())):
-        last_node = Node(n.state, last_node, n.action.inverse(), last_node.path_cost + n.action.inverse().cost)
+    for n in b_path:
+        last_action = last_action.inverse()
+        last_node = Node(state=n.state,
+                         parent=last_node,
+                         action=last_action,
+                         path_cost=last_node.path_cost + last_action.cost)
+        last_action = n.action
 
     return last_node
 
