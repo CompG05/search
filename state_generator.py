@@ -1,3 +1,4 @@
+import os
 import sys
 
 from generators import generate_npuzzle_state
@@ -20,6 +21,7 @@ def main():
             print("  -h  Show this help message")
             print("  -l  List available problems")
             print("  -o  Output to file")
+            print("  -d  Delete file")
             return
         if args[0] == "-l":
             print("Available problems:")
@@ -36,6 +38,21 @@ def main():
         file_name = args[index + 1]
         args.pop(index)
         args.pop(index)
+
+    if "-d" in args:
+        index = args.index("-d")
+        if index == len(args) - 1:
+            print("Missing file name")
+            return
+        file_name = args[index + 1]
+        file_path = f"./{file_name}"
+        try:
+            os.remove(file_path)
+            print("File deleted successfully")
+        except:
+            print("File not found")
+        return
+
 
     if len(args) < 2:
         print("Missing arguments")
