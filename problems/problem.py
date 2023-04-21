@@ -68,10 +68,22 @@ class InvertibleProblem(Problem):
 class InstrumentedProblem(Problem):
     def __init__(self, problem):
         self.problem = problem
-        self.nodes = 1
-        self.visited = 0
-        self.max_nodes_in_frontier = 0
+        self._nodes = 1
+        self._visited = 0
+        self._max_nodes_in_frontier = 0
         super().__init__(problem.initial_state)
+
+    @property
+    def nodes(self):
+        return self._nodes
+
+    @property
+    def visited(self):
+        return self._visited
+
+    @property
+    def max_nodes_in_frontier(self):
+        return self._max_nodes_in_frontier
 
     @property
     def nodes_in_frontier(self):
@@ -82,22 +94,44 @@ class InstrumentedProblem(Problem):
         return (self.nodes - 1) / self.visited
 
     def reset(self):
-        self.nodes = 1
-        self.visited = 0
-        self.max_nodes_in_frontier = 0
-
-    def inverse(self) -> 'InstrumentedProblem':
-        return InstrumentedProblem(self.problem.inverse())
+        self._nodes = 1
+        self._visited = 0
+        self._max_nodes_in_frontier = 0
 
     def is_goal(self, state):
-        self.visited += 1
+        self._visited += 1
         return self.problem.is_goal(state)
 
     def result(self, state, action):
-        self.nodes += 1
-        self.max_nodes_in_frontier = max((self.max_nodes_in_frontier, self.nodes_in_frontier))
+        self._nodes += 1
+        self._max_nodes_in_frontier = max((self.max_nodes_in_frontier, self.nodes_in_frontier))
         return self.problem.result(state, action)
 
     def enabled_actions(self, state) -> list[Action]:
         actions = self.problem.enabled_actions(state)
         return actions
+
+
+class InstrumentedInvertibleProblem(InstrumentedProblem):
+    def __init__(self, problem: InvertibleProblem):
+        super().__init__(problem)
+        self.b_problem = InstrumentedProblem(problem.inverse())
+
+    @property
+    def nodes(self):
+        return self._nodes + self.b_problem.nodes
+
+    @property
+    def visited(self):
+        return self._visited + self.b_problem.visited
+
+    @property
+    def branching_factor(self):
+        return 0
+
+    def reset(self):
+        super().reset()
+        self.b_problem.reset()
+
+    def inverse(self):
+        return self.b_problem

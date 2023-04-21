@@ -3,7 +3,7 @@ import time
 
 from algorithms.solver import Solution, Solver
 from algorithms.search_algorithm import Node
-from problems.problem import InstrumentedProblem
+from problems.problem import InstrumentedProblem, InvertibleProblem, InstrumentedInvertibleProblem
 
 
 class InstrumentedSolution(Solution):
@@ -24,9 +24,12 @@ max memory usage: {self.problem.max_nodes_in_frontier * self.node_size} bytes"""
 
 
 class InstrumentedSolver(Solver):
-    def __init__(self, problem: str, algorithm: str, heuristic: str, *args):
-        super().__init__(problem, algorithm, heuristic, *args)
-        self.problem = InstrumentedProblem(self.problem)
+    def __init__(self, problem: str, initial_state, algorithm: str, heuristic: str, *args):
+        super().__init__(problem, initial_state, algorithm, heuristic, *args)
+        if isinstance(self.problem, InvertibleProblem):
+            self.problem = InstrumentedInvertibleProblem(self.problem)
+        else:
+            self.problem = InstrumentedProblem(self.problem)
 
     def solve(self) -> InstrumentedSolution:
         self.problem.reset()

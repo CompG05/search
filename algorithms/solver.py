@@ -26,8 +26,8 @@ action sequence: {self.action_sequence}"""
 
 
 class Solver:
-    def __init__(self, problem: str, algorithm: str, heuristic: str, *args):
-        self.problem, heuristic_factory = problem_factory.create(problem, *args)
+    def __init__(self, problem: str, initial_state, algorithm: str, heuristic: str, *args):
+        self.problem, heuristic_factory = problem_factory.create(problem, initial_state, *args)
         self.heuristic = heuristic and heuristic_factory.create(heuristic)
         self.algorithm = algorithm_factory.create(algorithm, self.heuristic)
 
