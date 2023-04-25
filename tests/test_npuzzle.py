@@ -1,7 +1,7 @@
 import pytest
 
 from algorithms.solver import Solver
-from algorithms.uninformed.breadth_first_search import breadth_first_search
+from constants import *
 from problems.npuzzle import NPuzzleProblem, NPuzzleState, RightMove, LeftMove, UpMove, DownMove
 
 initial = (
@@ -58,13 +58,15 @@ def test_enabled_actions(state, expected):
     assert set(p.enabled_actions(state)) == set(expected)
 
 
-algorithms = [breadth_first_search]
+algorithms_config = [(alg, h) for alg in informed_algorithms for h in npuzzle_heuristics] \
+                    + [(alg, None) for alg in uninformed_algorithms
+                       if alg not in [DEPTH_GRAPH, DEPTH_ACYCLIC, DEPTH_FIRST]]
 
 
-@pytest.mark.parametrize("algorithms", algorithms)
-def test_solution(algorithm):
+@pytest.mark.parametrize("algorithm, heuristic", algorithms_config)
+def test_solution(algorithm, heuristic):
     size = p.initial_state.size
-    solver = Solver(p, algorithm)
+    solver = Solver("NPuzzle", initial, algorithm, heuristic)
     solution = solver.solve()
 
     assert solution.final_state == NPuzzleState(tuple(range(0, size)))
