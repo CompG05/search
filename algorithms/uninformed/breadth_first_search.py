@@ -18,9 +18,6 @@ class BreadthFirstSearch(SearchAlgorithm):
         return None
 
 
-breadth_first_search = BreadthFirstSearch()
-
-
 class BreadthFirstGraphSearch(SearchAlgorithm):
     def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
@@ -39,9 +36,6 @@ class BreadthFirstGraphSearch(SearchAlgorithm):
         return None
 
 
-breadth_first_graph_search = BreadthFirstGraphSearch()
-
-
 class BreadthFirstSearchAcyclic(SearchAlgorithm):
     def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
@@ -55,6 +49,3 @@ class BreadthFirstSearchAcyclic(SearchAlgorithm):
                             if not node.in_path(child.state))
 
         return None
-
-
-breadth_first_search_acyclic = BreadthFirstSearchAcyclic()

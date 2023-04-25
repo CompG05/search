@@ -1,17 +1,18 @@
 from heuristics.npuzzle import NPuzzleHeuristic
+from heuristics.nqueens import NQueensHeuristic
 from problems.npuzzle import NPuzzleProblem
+from problems.nqueens import NQueensProblem
+from constants import *
 
 
 class ProblemFactory:
-    def create(self, problem: str, initial_state, *args):
-        if problem.lower() == "npuzzle":  # input: args = [size, depth]
-            return self.create_npuzzle(initial_state)
+    def create(self, problem: str, initial_state):
+        if problem.lower() == NPUZZLE:
+            return NPuzzleProblem(initial_state), NPuzzleHeuristic()
+        elif problem.lower() == NQUEENS:
+            return NQueensProblem(initial_state), NQueensHeuristic()
         else:
             raise ValueError("Problem not found")
-
-    @staticmethod
-    def create_npuzzle(initial_state):
-        return NPuzzleProblem(initial_state), NPuzzleHeuristic()
 
 
 problem_factory = ProblemFactory()

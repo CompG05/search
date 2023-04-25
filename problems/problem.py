@@ -123,7 +123,7 @@ class InstrumentedInvertibleProblem(InstrumentedProblem):
 
     @property
     def visited(self):
-        return self._visited + self.b_problem.visited
+        return 0
 
     @property
     def branching_factor(self):

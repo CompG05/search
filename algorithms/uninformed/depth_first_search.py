@@ -16,9 +16,6 @@ class DepthFirstSearch(SearchAlgorithm):
         return None
 
 
-depth_first_search = DepthFirstSearch()
-
-
 class DepthFirstGraphSearch(SearchAlgorithm):
     def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
@@ -37,9 +34,6 @@ class DepthFirstGraphSearch(SearchAlgorithm):
         return None
 
 
-depth_first_graph_search = DepthFirstGraphSearch()
-
-
 class DepthFirstSearchAcyclic(SearchAlgorithm):
     def search(self, problem: Problem) -> Node | None:
         initial_node = Node(problem.initial_state)
@@ -54,6 +48,3 @@ class DepthFirstSearchAcyclic(SearchAlgorithm):
                                 if not node.in_path(child.state))
 
         return None
-
-
-depth_first_search_acyclic = DepthFirstSearch()
