@@ -54,6 +54,9 @@ problems = [NPUZZLE, NQUEENS, ROMANIA]
 WRONG_TILES = "wrong_tiles"
 MANHATTAN_DISTANCE = "manhattan_distance"
 
+N_CONFLICTS = "n_conflicts"
+
 heuristics = {
-    NPUZZLE: [WRONG_TILES, MANHATTAN_DISTANCE]
+    NPUZZLE: [WRONG_TILES, MANHATTAN_DISTANCE],
+    NQUEENS: [N_CONFLICTS]
 }

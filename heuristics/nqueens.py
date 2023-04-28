@@ -1,8 +1,18 @@
 from typing import Callable
 
 from algorithms.search_algorithm import Node
+from problems.nqueens import NQueensState
+from constants import *
 
 
 class NQueensHeuristic:
     def create(self, heuristic: str) -> Callable[[Node], float]:
-        raise NotImplementedError
+        if heuristic.lower() == N_CONFLICTS:
+            return self.n_conflicts
+        else:
+            raise ValueError("Heuristic not found")
+
+    @staticmethod
+    def n_conflicts(node: Node):
+        state: NQueensState = node.state
+        return state.n_conflicts()
