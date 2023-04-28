@@ -48,8 +48,12 @@ NPUZZLE = "npuzzle"
 NQUEENS = "nqueens"
 ROMANIA = "romania"
 
+problems = [NPUZZLE, NQUEENS, ROMANIA]
+
 # npuzzle heuristics
 WRONG_TILES = "wrong_tiles"
 MANHATTAN_DISTANCE = "manhattan_distance"
 
-npuzzle_heuristics = [WRONG_TILES, MANHATTAN_DISTANCE]
+heuristics = {
+    NPUZZLE: [WRONG_TILES, MANHATTAN_DISTANCE]
+}
