@@ -18,11 +18,11 @@ class NQueensState(State):
                 abs(row1 - row2) == abs(col1 - col2))
 
     def n_conflicts(self):
-        occupied_cells = enumerate(self.data)
+        occupied_cells = list(enumerate(self.data))
         conflicts = 0
 
-        for (r1, c1) in occupied_cells:
-            for (r2, c2) in occupied_cells[c1 + 1:]:
+        for (c1, r1) in occupied_cells:
+            for (c2, r2) in occupied_cells[c1 + 1:]:
                 conflicts += self.conflicted(r1, c1, r2, c2)
 
         return conflicts
@@ -35,6 +35,9 @@ class NQueensState(State):
 
     def is_valid(self):
         return all([self.data[i] in range(self.dimension) for i in range(self.dimension)])
+
+    def __repr__(self):
+        return str(self.data)
 
 
 class NQueensAction(Action):
