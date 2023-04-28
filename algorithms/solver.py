@@ -6,7 +6,7 @@ from factories.problem_factory import problem_factory
 
 
 class Solution:
-    def __init__(self, node: Node | None, algorithm_name: str, heuristic_name: Optional[str]):
+    def __init__(self, node: Node | None, algorithm_name: str, heuristic_name: Optional[str], initial_state):
         if not node:
             self.final_state = None
             self.path = []
@@ -21,6 +21,7 @@ class Solution:
             self.depth = node.depth
         self.algorithm_name = algorithm_name
         self.heuristic_name = heuristic_name
+        self.initial_state = initial_state
 
     def __str__(self):
         return f"""
@@ -31,10 +32,10 @@ action sequence: {self.action_sequence}"""
 
     @classmethod
     def csv_header(cls):
-        return "algorithm,heuristic,depth,final_state,action_sequence,path_cost"
+        return "algorithm,heuristic,depth,initial_state,final_state,action_sequence,path_cost"
 
     def to_csv(self):
-        return f"{self.algorithm_name},{self.heuristic_name},{self.depth},\"{self.final_state}\",\"{self.action_sequence}\",{self.path_cost}"
+        return f"{self.algorithm_name},{self.heuristic_name},{self.depth},\"{self.initial_state}\",\"{self.final_state}\",\"{self.action_sequence}\",{self.path_cost}"
 
 
 class Solver:
@@ -45,4 +46,4 @@ class Solver:
 
     def solve(self) -> Solution:
         node = self.algorithm.search(self.problem)
-        return Solution(node, self.algorithm.__class__.__name__, self.heuristic.__name__)
+        return Solution(node, self.algorithm.__class__.__name__, self.heuristic.__name__, self.problem.initial_state)

@@ -8,8 +8,8 @@ from problems.problem import InstrumentedProblem, InvertibleProblem, Instrumente
 
 
 class InstrumentedSolution(Solution):
-    def __init__(self, node: Node | None, algorithm_name: str, heuristic_name: str, dtime, problem: InstrumentedProblem):
-        super().__init__(node, algorithm_name, heuristic_name)
+    def __init__(self, node: Node | None, algorithm_name: str, heuristic_name: str, initial_state, dtime, problem: InstrumentedProblem):
+        super().__init__(node, algorithm_name, heuristic_name, initial_state)
         self.problem = problem
         self.node_size = sys.getsizeof(node)
         self.time = dtime * 1000
@@ -46,4 +46,4 @@ class InstrumentedSolver(Solver):
         node = self.algorithm.search(self.problem)
         after = time.time()
 
-        return InstrumentedSolution(node, self.algorithm.__class__.__name__, self.heuristic.__name__, after - before, self.problem)
+        return InstrumentedSolution(node, self.algorithm.__class__.__name__, self.heuristic.__name__, self.problem.initial_state, after - before, self.problem)
