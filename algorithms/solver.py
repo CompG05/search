@@ -46,4 +46,5 @@ class Solver:
 
     def solve(self) -> Solution:
         node = self.algorithm.search(self.problem)
-        return Solution(node, self.algorithm.__class__.__name__, self.heuristic.__name__, self.problem.initial_state)
+        heuristic_name = "" if self.heuristic is None else self.heuristic.__name__
+        return Solution(node, self.algorithm.__class__.__name__, heuristic_name, self.problem.initial_state)
