@@ -1,8 +1,7 @@
 import pytest
 
 from algorithms.solver import Solver
-from constants import informed_algorithms, npuzzle_heuristics, uninformed_algorithms, DEPTH_GRAPH, DEPTH_ACYCLIC, \
-    DEPTH_FIRST
+from constants import *
 from problems.nqueens import NQueensState
 
 initial = NQueensState((3, 0, 2, 0, 5, 7, 1, 3))
@@ -71,9 +70,8 @@ def test_is_valid(state, expected):
     assert state.is_valid() == expected
 
 
-algorithms_config = [(alg, h) for alg in informed_algorithms for h in npuzzle_heuristics] \
-                    + [(alg, None) for alg in uninformed_algorithms
-                       if alg not in [DEPTH_GRAPH, DEPTH_ACYCLIC, DEPTH_FIRST]]
+algorithms_config = [(alg, h) for alg in informed_algorithms for h in heuristics[NQUEENS]] \
+                    + [(alg, None) for alg in [ITERATIVE_DEEPENING, UNIFORM_COST]]
 
 
 @pytest.mark.parametrize("algorithm, heuristic", algorithms_config)
