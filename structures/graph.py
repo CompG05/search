@@ -1,5 +1,6 @@
 class Graph:
     """Graph representation taken from aima-python"""
+
     def __init__(self, graph_dict=None, directed=True):
         self.graph_dict = graph_dict or {}
         self.directed = directed
@@ -32,6 +33,14 @@ class Graph:
             return links
         else:
             return links.get(b)
+
+    def inverse(self) -> 'Graph':
+        """Return a new Graph with edges reversed."""
+        inv = Graph(None, self.directed)
+        for a in self.graph_dict:
+            for (b, dist) in self.graph_dict[a].items():
+                inv.connect(b, a, dist)
+        return inv
 
     def nodes(self):
         """Return a list of nodes in the graph."""
