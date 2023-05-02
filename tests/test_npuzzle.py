@@ -58,7 +58,7 @@ def test_enabled_actions(state, expected):
     assert set(p.enabled_actions(state)) == set(expected)
 
 
-algorithms_config = [(alg, h) for alg in informed_algorithms for h in npuzzle_heuristics] \
+algorithms_config = [(alg, h) for alg in informed_algorithms for h in heuristics[NPUZZLE]] \
                     + [(alg, None) for alg in uninformed_algorithms
                        if alg not in [DEPTH_GRAPH, DEPTH_ACYCLIC, DEPTH_FIRST]]
 
