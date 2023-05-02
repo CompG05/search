@@ -23,6 +23,10 @@ class Solution:
         self.heuristic_name = heuristic_name
         self.initial_state = initial_state
 
+    @classmethod
+    def not_found(cls, algorithm_name: str, heuristic_name: Optional[str], initial_state):
+        return Solution(None, algorithm_name, heuristic_name, initial_state)
+
     def __str__(self):
         return f"""
 algorithm: {self.algorithm_name}
