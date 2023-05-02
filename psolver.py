@@ -1,9 +1,14 @@
 import sys
 import argparse
+import signal
 
 from algorithms.instrumented_solver import InstrumentedSolver, InstrumentedSolution
+from algorithms.solver import Solution
 from constants import *
 
+
+def handle_timeout(signum, frame):
+    raise TimeoutError
 
 def read_states(input_file, problem):
     print("Parsing input...")
@@ -22,6 +27,9 @@ def benchmark(problem, initial_states):
     """Return a list of solutions"""
     print("Testing algorithms...")
 
+    signal.signal(signal.SIGALRM, handle_timeout)
+
+
     result = []
     tests = (len(uninformed_algorithms.keys()) - 3) * len(initial_states) + len(informed_algorithms.keys()) * len(initial_states) * len(heuristics[problem])
     iteration = 0
@@ -31,21 +39,27 @@ def benchmark(problem, initial_states):
     for algorithm in uninformed_algorithms:
         for initial_state in initial_states:
             solver = InstrumentedSolver(problem, initial_state, algorithm, None)
-            solution = solver.solve()
-            print(f"{iteration}/{tests}")
+            signal.alarm(3)
+            try:
+                solution = solver.solve()
+            except TimeoutError:
+                solution = Solution.not_found(algorithm, None, initial_state)
             iteration += 1
+            print(f"{iteration}/{tests}")
             result.append(solution)
 
     for algorithm in informed_algorithms:
         for initial_state in initial_states:
             for heuristic in heuristics[problem]:
                 solver = InstrumentedSolver(problem, initial_state, algorithm, heuristic)
-                solution = solver.solve()
-                print(f"{iteration}/{tests}")
+                signal.alarm(3)
+                try:
+                    solution = solver.solve()
+                except TimeoutError:
+                    solution = Solution.not_found(algorithm, heuristic, initial_state)
                 iteration += 1
+                print(f"{iteration}/{tests}")
                 result.append(solution)
-
-    print(f"{iteration}/{tests}")
 
     return result
 
