@@ -62,8 +62,10 @@ problems = [NPUZZLE, NQUEENS, ROMANIA]
 WRONG_TILES = "wrong_tiles"
 MANHATTAN_DISTANCE = "manhattan_distance"
 
+# nqueens heuristic
 N_CONFLICTS = "n_conflicts"
 
+# romania heuristic
 LINEAR_DISTANCE = "linear_distance"
 
 heuristics = {
