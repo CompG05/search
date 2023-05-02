@@ -31,7 +31,7 @@ def benchmark(problem, initial_states):
 
 
     result = []
-    tests = (len(uninformed_algorithms.keys()) - 3) * len(initial_states) + len(informed_algorithms.keys()) * len(initial_states) * len(heuristics[problem])
+    tests = ((len(uninformed_algorithms.keys())) + len(informed_algorithms.keys()) * len(heuristics[problem])) * len(initial_states)
     iteration = 0
 
     print(f"0/{tests}")

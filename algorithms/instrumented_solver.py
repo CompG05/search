@@ -15,6 +15,7 @@ class InstrumentedSolution(Solution):
         self.time = dtime * 1000
         self.memory = self.problem.max_nodes_in_frontier * self.node_size
 
+
     def __str__(self):
         return super().__str__() + f"""
 time: %.2f ms
@@ -46,4 +47,4 @@ class InstrumentedSolver(Solver):
         node = self.algorithm.search(self.problem)
         after = time.time()
 
-        return InstrumentedSolution(node, self.algorithm.__class__.__name__, self.heuristic.__name__, self.problem.initial_state, after - before, self.problem)
+        return InstrumentedSolution(node, self.algorithm_name, self.heuristic_name, self.problem.initial_state, after - before, self.problem)
