@@ -1,8 +1,8 @@
-from problems.problem import Action, Problem
+from problems.problem import InvertibleAction, InvertibleProblem
 from structures.graph import Graph
 
 
-class Edge(Action):
+class Edge(InvertibleAction):
     """Represents a transition to another node in a graph"""
 
     def __init__(self, graph: Graph, source, dest):
@@ -10,14 +10,16 @@ class Edge(Action):
         self.graph = graph
         self.source = source
         self.dest = dest
-        if dest in graph.get(source):
-            self.cost = graph.get(source, dest)
+        self.cost = graph.get(source, dest)
 
     def execute(self, source) -> object:
         return self.dest
 
     def is_enabled(self, source) -> bool:
         return source == self.source and self.dest in self.graph.get(self.source)
+
+    def inverse(self) -> 'Edge':
+        return Edge(self.graph.inverse(), self.dest, self.source)
 
     def __eq__(self, other):
         return self.graph == other.graph \
@@ -33,14 +35,14 @@ class Edge(Action):
         return self.source.__str__() + " -> " + self.dest.__str__() + " (" + self.cost.__str__() + ")"
 
 
-class GraphProblem(Problem):
+class GraphProblem(InvertibleProblem):
     """Represents a single source-single destination graph problem"""
 
     def __init__(self, graph: Graph, initial, goal):
         self.graph = graph
         self.initial = initial
         self.goal = goal
-        super().__init__(self.initial)
+        super().__init__(self.initial, self.goal)
         self.edges = [Edge(self.graph, source, dest)
                       for source in graph.nodes()
                       for dest in graph.get(source).keys()]
@@ -48,5 +50,8 @@ class GraphProblem(Problem):
     def is_goal(self, state) -> bool:
         return state == self.goal
 
-    def enabled_actions(self, source) -> list[Action]:
+    def inverse(self) -> 'GraphProblem':
+        return GraphProblem(self.graph.inverse(), self.goal, self.initial)
+
+    def enabled_actions(self, source) -> list[Edge]:
         return [edge for edge in self.edges if edge.source == source]

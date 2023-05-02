@@ -1,5 +1,6 @@
 from heuristics.npuzzle import NPuzzleHeuristic
 from heuristics.nqueens import NQueensHeuristic
+from heuristics.romania import RomaniaHeuristic
 from problems.npuzzle import NPuzzleProblem
 from problems.nqueens import NQueensProblem
 from constants import *
@@ -11,6 +12,8 @@ class ProblemFactory:
             return NPuzzleProblem(initial_state), NPuzzleHeuristic()
         elif problem.lower() == NQUEENS:
             return NQueensProblem(initial_state), NQueensHeuristic()
+        elif problem.lower() == ROMANIA:
+            return PathToBucharest(initial_state), RomaniaHeuristic()
         else:
             raise ValueError("Problem not found")
 
