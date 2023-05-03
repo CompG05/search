@@ -1,1 +1,2 @@
 from generators.npuzzle import generate_npuzzle_state
+from generators.nqueens import generate_nqueens_state

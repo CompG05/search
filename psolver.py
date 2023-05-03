@@ -6,13 +6,14 @@ from algorithms.instrumented_solver import InstrumentedSolver, InstrumentedSolut
 from algorithms.solver import Solution
 from constants import *
 
+TIME_LIMIT = 50
 
 def handle_timeout(signum, frame):
     raise TimeoutError
 
 def read_states(input_file, problem):
     print("Parsing input...")
-    if problem == NPUZZLE:
+    if problem == NPUZZLE or problem == NQUEENS:
         """Convert a csv file into a list of tuples."""
         states = []
         with open(input_file, "r") as f:
@@ -39,7 +40,7 @@ def benchmark(problem, initial_states):
     for algorithm in uninformed_algorithms:
         for initial_state in initial_states:
             solver = InstrumentedSolver(problem, initial_state, algorithm, None)
-            signal.alarm(3)
+            signal.alarm(TIME_LIMIT)
             try:
                 solution = solver.solve()
             except TimeoutError:
@@ -52,7 +53,7 @@ def benchmark(problem, initial_states):
         for initial_state in initial_states:
             for heuristic in heuristics[problem]:
                 solver = InstrumentedSolver(problem, initial_state, algorithm, heuristic)
-                signal.alarm(3)
+                signal.alarm(TIME_LIMIT)
                 try:
                     solution = solver.solve()
                 except TimeoutError:

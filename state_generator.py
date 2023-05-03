@@ -1,10 +1,28 @@
 import os
 import sys
 
-from generators import generate_npuzzle_state
+from algorithms.solver import Solver
+from generators import generate_npuzzle_state, generate_nqueens_state
+from constants import *
+
+generators = {
+    NPUZZLE: generate_npuzzle_state,
+    NQUEENS: generate_nqueens_state,
+}
+
+cache = {}
 
 
-NPUZZLE = "NPuzzle"
+def depth(s, problem):
+    """Return the depth of the shortest solution"""
+    if s in cache:
+        return cache[s]
+
+    heuristic = WRONG_ROW_COL if problem == NPUZZLE else N_CONFLICTS
+    solver = Solver(problem, s, A_STAR, heuristic)
+    solution = solver.solve()
+    cache[s] = solution.depth
+    return solution.depth
 
 
 def main():
@@ -25,7 +43,7 @@ def main():
             return
         if args[0] == "-l":
             print("Available problems:")
-            print("  " + NPUZZLE)
+            print(f"{NPUZZLE}, {NQUEENS}")
             return
 
     file_name = None
@@ -53,7 +71,6 @@ def main():
             print("File not found")
         return
 
-
     if len(args) < 2:
         print("Missing arguments")
         return
@@ -62,24 +79,32 @@ def main():
     problem = args[1]
     problem_args = args[2:]
 
-    states = []
-
-    if problem == NPUZZLE:
+    if problem == NPUZZLE or problem == NQUEENS:
         if len(problem_args) != 1:
-            print("Usage: python state_generator.py [-o <file>] <num_states> NPuzzle <dimension>")
+            print(f"Usage: python state_generator.py [-o <file>] <num_states> {problem} <dimension>")
             return
         dimension = int(problem_args[0])
-        states = [generate_npuzzle_state(dimension) for _ in range(num_states)]
+
+        # half of states are random
+        states = [generators[problem](dimension) for _ in range(int(num_states / 2))]
+
+        # the rest are the most difficult of a sample -evaluated by A* (Wrong_row_col for npuzzle)/(N_conflicts for nqueens)-
+        remaining = num_states - int(num_states / 2) # In case num_states is odd
+        hard_states = [generators[problem](dimension) for _ in range(remaining * 3)]
+        hard_states.sort(key=lambda s: depth(s, problem), reverse=True)
+        hard_states = hard_states[:remaining]
+
+
     else:
         print("Unknown problem: " + problem)
         return
 
     if file_name is None:
-        for state in states:
+        for state in states + hard_states:
             print(state)
     else:
         with open(file_name, "w") as file:
-            for state in states:
+            for state in states + hard_states:
                 # Write tuple as csv
                 file.write(",".join(str(x) for x in state) + "\n")
 

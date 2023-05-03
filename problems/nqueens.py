@@ -58,9 +58,14 @@ class NQueensAction(Action):
     def __eq__(self, other):
         return isinstance(other, NQueensAction) and self.column == other.column and self.delta == other.delta
 
+    def __repr__(self):
+        return "q" + str(self.column) + "++"
+
 
 class NQueensProblem(Problem):
-    def __init__(self, initial: NQueensState):
+    def __init__(self, initial: tuple | NQueensState):
+        if isinstance(initial, tuple):
+            initial = NQueensState(initial)
         self.actions = [NQueensAction(column, 1) for column in range(initial.dimension)]
         super().__init__(initial)
 

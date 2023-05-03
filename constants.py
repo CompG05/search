@@ -27,11 +27,11 @@ BIDIRECTIONAL = "bidirectional"
 
 uninformed_algorithms = {
     BREADTH_FIRST: BreadthFirstSearch,
-    BREADTH_GRAPH: BreadthFirstGraphSearch,
-    BREADTH_ACYCLIC: BreadthFirstSearchAcyclic,
+    # BREADTH_GRAPH: BreadthFirstGraphSearch,
+    # BREADTH_ACYCLIC: BreadthFirstSearchAcyclic,
 
-    DEPTH_FIRST: DepthFirstSearch,
-    DEPTH_GRAPH: DepthFirstGraphSearch,
+    # DEPTH_FIRST: DepthFirstSearch,
+    # DEPTH_GRAPH: DepthFirstGraphSearch,
     DEPTH_ACYCLIC: DepthFirstSearchAcyclic,
 
     ITERATIVE_DEEPENING: IterativeDeepeningSearch,
@@ -62,6 +62,7 @@ problems = [NPUZZLE, NQUEENS, ROMANIA]
 WRONG_TILES = "wrong_tiles"
 MANHATTAN_DISTANCE = "manhattan_distance"
 GASCHNIG_DISTANCE = "gaschnig_distance"
+WRONG_ROW_COL = "wrong_row_col"
 
 # nqueens heuristic
 N_CONFLICTS = "n_conflicts"
@@ -70,7 +71,7 @@ N_CONFLICTS = "n_conflicts"
 LINEAR_DISTANCE = "linear_distance"
 
 heuristics = {
-    NPUZZLE: [WRONG_TILES, MANHATTAN_DISTANCE, GASCHNIG_DISTANCE],
+    NPUZZLE: [WRONG_TILES, MANHATTAN_DISTANCE, GASCHNIG_DISTANCE, WRONG_ROW_COL],
     NQUEENS: [N_CONFLICTS],
     ROMANIA: [LINEAR_DISTANCE],
 }
