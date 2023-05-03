@@ -13,6 +13,8 @@ class NPuzzleHeuristic:
             return self.manhattan_distance
         if heuristic.lower() == GASCHNIG_DISTANCE:
             return self.gaschnig_distance
+        if heuristic.lower() == WRONG_ROW_COL:
+            return self.wrong_row_col
         else:
             raise ValueError("Heuristic not found")
 
@@ -52,9 +54,31 @@ class NPuzzleHeuristic:
                         s[0], s[i] = s[i], s[0]
                         h += 1
                         break
-            else: # blank is not in its position
+            else:  # blank is not in its position
                 pos = s.index(blank_index)
                 s[blank_index], s[pos] = s[pos], s[blank_index]
+                h += 1
+
+        return h
+
+    @staticmethod
+    def wrong_row_col(node: Node) -> float:
+        h = 0
+        state: NPuzzleState = node.state
+        dim = state.dimension
+        t = state.data
+
+        for i in range(len(t)):
+            current_row = i / dim
+            current_col = i % dim
+
+            tile = t[i]
+            actual_row = tile / dim
+            actual_col = tile % dim
+
+            if current_row != actual_row:
+                h += 1
+            if current_col != actual_col:
                 h += 1
 
         return h
