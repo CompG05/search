@@ -1,5 +1,6 @@
 import sys
 import time
+import tracemalloc as tm
 from typing import Optional
 
 from algorithms.solver import Solution, Solver
@@ -8,29 +9,30 @@ from problems.problem import InstrumentedProblem, InvertibleProblem, Instrumente
 
 
 class InstrumentedSolution(Solution):
-    def __init__(self, node: Node | None, algorithm_name: str, heuristic_name: str, initial_state, dtime, problem: InstrumentedProblem):
+    def __init__(self, node: Node | None, algorithm_name: str, heuristic_name: str, initial_state, dtime, memory_peak, problem: InstrumentedProblem):
         super().__init__(node, algorithm_name, heuristic_name, initial_state)
         self.problem = problem
         self.node_size = sys.getsizeof(node)
         self.time = dtime * 1000
-        self.memory = self.problem.max_nodes_in_frontier * self.node_size
+        self.memory = memory_peak
+        self.nodes = problem.nodes
 
 
     def __str__(self):
         return super().__str__() + f"""
 time: %.2f ms
 branching factor: %.4f
-generated nodes: {self.problem.nodes}
+generated nodes: {self.nodes}
 max nodes in frontier: {self.problem.max_nodes_in_frontier}
 max memory usage: {self.memory} bytes"""\
             % (self.time, self.problem.branching_factor)
 
     @classmethod
     def csv_header(cls):
-        return super().csv_header() + ",time (ms),nodes,memory (bytes)"
+        return super().csv_header() + ",time (ms), nodes, memory (Kb)"
 
     def to_csv(self):
-        return super().to_csv() + f",{self.time},{self.problem.nodes},{self.memory}"
+        return super().to_csv() + f",{self.time},{self.nodes},%.3f" % (self.memory / 1000)
 
 
 class InstrumentedSolver(Solver):
@@ -44,7 +46,11 @@ class InstrumentedSolver(Solver):
     def solve(self) -> InstrumentedSolution:
         self.problem.reset()
         before = time.time()
+        tm.start()
         node = self.algorithm.search(self.problem)
+        tm.take_snapshot()
+        memory_peak = tm.get_traced_memory()[1]
         after = time.time()
+        tm.stop()
 
-        return InstrumentedSolution(node, self.algorithm_name, self.heuristic_name, self.problem.initial_state, after - before, self.problem)
+        return InstrumentedSolution(node, self.algorithm_name, self.heuristic_name, self.problem.initial_state, after - before, memory_peak, self.problem)
