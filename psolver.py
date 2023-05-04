@@ -8,31 +8,37 @@ from constants import *
 
 TIME_LIMIT = 50
 
+
 def handle_timeout(signum, frame):
     raise TimeoutError
 
-def read_states(input_file, problem):
-    print("Parsing input...")
-    if problem == NPUZZLE or problem == NQUEENS:
-        """Convert a csv file into a list of tuples."""
-        states = []
-        with open(input_file, "r") as f:
-            for line in f:
-                states.append(tuple(int(x) for x in line.split(",")))
-        return states
 
-    return None
+def read_simple_tuple(s: str, problem) -> tuple:
+    if problem == ROMANIA:
+        return tuple(x.strip() for x in s.split(","))
+    else:
+        return tuple(int(x) for x in s.split(","))
+
+
+def read_states(input_file, problem):
+    """Convert a csv file into a list of tuples."""
+    states = []
+    print("Parsing input...")
+    with open(input_file, "r") as f:
+        for line in f:
+            states.append(read_simple_tuple(line, problem))
+    return states
 
 
 def benchmark(problem, initial_states):
     """Return a list of solutions"""
     print("Testing algorithms...")
 
-    signal.signal(signal.SIGALRM, handle_timeout)
-
+    # signal.signal(signal.SIGALRM, handle_timeout)
 
     result = []
-    tests = ((len(uninformed_algorithms.keys())) + len(informed_algorithms.keys()) * len(heuristics[problem])) * len(initial_states)
+    tests = ((len(uninformed_algorithms.keys())) + len(informed_algorithms.keys()) * len(heuristics[problem])) * len(
+        initial_states)
     iteration = 0
 
     print(f"0/{tests}")
@@ -40,7 +46,7 @@ def benchmark(problem, initial_states):
     for algorithm in uninformed_algorithms:
         for initial_state in initial_states:
             solver = InstrumentedSolver(problem, initial_state, algorithm, None)
-            signal.alarm(TIME_LIMIT)
+            # signal.alarm(TIME_LIMIT)
             try:
                 solution = solver.solve()
             except TimeoutError:
@@ -53,7 +59,7 @@ def benchmark(problem, initial_states):
         for initial_state in initial_states:
             for heuristic in heuristics[problem]:
                 solver = InstrumentedSolver(problem, initial_state, algorithm, heuristic)
-                signal.alarm(TIME_LIMIT)
+                # signal.alarm(TIME_LIMIT)
                 try:
                     solution = solver.solve()
                 except TimeoutError:
