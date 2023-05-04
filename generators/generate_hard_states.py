@@ -20,13 +20,9 @@ def nonstop_states(filename, dimension: int):
 
     signal.signal(signal.SIGALRM, handle_timeout)
 
-    if not os.path.exists(filename):
-        with open(filename, "w") as f:
-            f.write(InstrumentedSolution.csv_header())
-
     while True:
         state = generate_npuzzle_state(dimension)
-        solver = Solver(NPUZZLE, state, A_STAR, MANHATTAN_DISTANCE)
+        solver = Solver(NPUZZLE, state, A_STAR, WRONG_ROW_COL)
 
         signal.alarm(TIME_LIMIT)
         try:
