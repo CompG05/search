@@ -1,5 +1,26 @@
-from problems.problem import InvertibleAction, InvertibleProblem
+from problems.problem import InvertibleAction, InvertibleProblem, State
 from structures.graph import Graph
+
+
+class Vertex:
+    def __init__(self, current, goal):
+        self.current = current
+        self.goal = goal
+
+    def is_goal(self):
+        return self.goal == self.current
+
+    def __eq__(self, other):
+        return isinstance(other, Vertex) and self.current == other.current
+
+    def __hash__(self):
+        return hash(self.current)
+
+    def __str__(self):
+        return str(self.current)
+
+    def __repr__(self):
+        return self.current.__repr__()
 
 
 class Edge(InvertibleAction):
@@ -12,11 +33,11 @@ class Edge(InvertibleAction):
         self.dest = dest
         self.cost = graph.get(source, dest)
 
-    def execute(self, source) -> object:
-        return self.dest
+    def execute(self, source: Vertex) -> Vertex:
+        return Vertex(self.dest, source.goal)
 
-    def is_enabled(self, source) -> bool:
-        return source == self.source and self.dest in self.graph.get(self.source)
+    def is_enabled(self, source: Vertex) -> bool:
+        return source.current == self.source and self.dest in self.graph.get(self.source)
 
     def inverse(self) -> 'Edge':
         return Edge(self.graph.inverse(), self.dest, self.source)
@@ -40,18 +61,16 @@ class GraphProblem(InvertibleProblem):
 
     def __init__(self, graph: Graph, initial, goal):
         self.graph = graph
-        self.initial = initial
-        self.goal = goal
-        super().__init__(self.initial, self.goal)
+
+        super().__init__(Vertex(initial, goal), Vertex(goal, goal))
         self.edges = [Edge(self.graph, source, dest)
                       for source in graph.nodes()
                       for dest in graph.get(source).keys()]
 
-    def is_goal(self, state) -> bool:
-        return state == self.goal
-
     def inverse(self) -> 'GraphProblem':
-        return GraphProblem(self.graph.inverse(), self.goal, self.initial)
+        initial = self.initial_state.current
+        goal = self.initial_state.goal
+        return GraphProblem(self.graph.inverse(), goal, initial)
 
-    def enabled_actions(self, source) -> list[Edge]:
-        return [edge for edge in self.edges if edge.source == source]
+    def enabled_actions(self, source: Vertex) -> list[Edge]:
+        return [edge for edge in self.edges if edge.source == source.current]

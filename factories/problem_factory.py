@@ -13,7 +13,7 @@ class ProblemFactory:
         elif problem.lower() == NQUEENS:
             return NQueensProblem(initial_state), NQueensHeuristic()
         elif problem.lower() == ROMANIA:
-            return PathToBucharest(initial_state), RomaniaHeuristic()
+            return GraphProblem(romania_map, initial_state[0], initial_state[1]), RomaniaHeuristic()
         else:
             raise ValueError("Problem not found")
 
