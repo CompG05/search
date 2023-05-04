@@ -98,6 +98,10 @@ def main():
             return
         dimension = int(problem_args[0])
 
+        if problem == NPUZZLE and dimension > 3:
+            print("WARNING: This generator is too inefficient for 15-puzzle states and bigger. Use "
+                  "generators/generate_hard_states.py instead")
+
         # half of states are random
         states = [generators[problem](dimension) for _ in range(int(num_states / 2))]
 
