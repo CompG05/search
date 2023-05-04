@@ -34,7 +34,7 @@ def benchmark(problem, initial_states):
     """Return a list of solutions"""
     print("Testing algorithms...")
 
-    # signal.signal(signal.SIGALRM, handle_timeout)
+    signal.signal(signal.SIGALRM, handle_timeout)
 
     result = []
     tests = ((len(uninformed_algorithms.keys())) + len(informed_algorithms.keys()) * len(heuristics[problem])) * len(
@@ -46,7 +46,7 @@ def benchmark(problem, initial_states):
     for algorithm in uninformed_algorithms:
         for initial_state in initial_states:
             solver = InstrumentedSolver(problem, initial_state, algorithm, None)
-            # signal.alarm(TIME_LIMIT)
+            signal.alarm(TIME_LIMIT)
             try:
                 solution = solver.solve()
             except TimeoutError:
@@ -59,7 +59,7 @@ def benchmark(problem, initial_states):
         for initial_state in initial_states:
             for heuristic in heuristics[problem]:
                 solver = InstrumentedSolver(problem, initial_state, algorithm, heuristic)
-                # signal.alarm(TIME_LIMIT)
+                signal.alarm(TIME_LIMIT)
                 try:
                     solution = solver.solve()
                 except TimeoutError:
