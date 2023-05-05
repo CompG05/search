@@ -1,8 +1,11 @@
 import pytest
+import itertools as it
 
 from algorithms.solver import Solver
 from constants import *
+from generators.npuzzle import is_solvable
 from problems.npuzzle import NPuzzleProblem, NPuzzleState, RightMove, LeftMove, UpMove, DownMove
+
 
 initial = (
     1, 4, 2,
@@ -70,3 +73,14 @@ def test_solution(algorithm, heuristic):
     solution = solver.solve()
 
     assert solution.final_state == NPuzzleState(tuple(range(0, size)))
+
+
+is_solvable_config = list(it.permutations((0, 1, 2, 3, 4, 5, 6, 7, 8)))
+
+
+@pytest.mark.parametrize("state", is_solvable_config)
+def test_is_solvable(state: list):
+    solver = Solver(NPUZZLE, state, A_STAR, WRONG_ROW_COL)
+    solution = solver.solve()
+    solution_found = solution.final_state is not None
+    assert is_solvable(state) == solution_found
