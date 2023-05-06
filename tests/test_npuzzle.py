@@ -6,7 +6,6 @@ from constants import *
 from generators.npuzzle import is_solvable
 from problems.npuzzle import NPuzzleProblem, NPuzzleState, RightMove, LeftMove, UpMove, DownMove
 
-
 initial = (
     1, 4, 2,
     6, 5, 0,
@@ -75,11 +74,23 @@ def test_solution(algorithm, heuristic):
     assert solution.final_state == NPuzzleState(tuple(range(0, size)))
 
 
-is_solvable_config = list(it.permutations((0, 1, 2, 3, 4, 5, 6, 7, 8)))
+is_solvable_fifteen_config = [
+    (0, 7, 4, 2, 6, 11, 1, 3, 10, 12, 14, 9, 5, 13, 8, 15),
+    (4, 8, 1, 3, 9, 6, 10, 2, 5, 11, 0, 15, 13, 12, 14, 7),
+    (4, 3, 2, 0, 6, 12, 1, 14, 9, 11, 15, 7, 5, 10, 8, 13),
+]
 
 
-@pytest.mark.parametrize("state", is_solvable_config)
-def test_is_solvable(state: list):
+@pytest.mark.parametrize("state", is_solvable_fifteen_config)
+def test_is_solvable_fifteen(state: tuple):
+    assert is_solvable(state)
+
+
+is_solvable_three_config = list(it.permutations((0, 1, 2, 3)))
+
+
+@pytest.mark.parametrize("state", is_solvable_three_config)
+def test_is_solvable_three(state: tuple):
     solver = Solver(NPUZZLE, state, A_STAR, WRONG_ROW_COL)
     solution = solver.solve()
     solution_found = solution.final_state is not None

@@ -25,8 +25,8 @@ def is_solvable(board: Sequence) -> bool:
         return n_inv % 2 == 0
     else:
         blank_position = board.index(0)
-        blank_row = blank_position / dim
-        return blank_row % 2 != n_inv % 2
+        blank_row = int(blank_position / dim)
+        return blank_row & 1 == n_inv & 1
 
 
 def generate_npuzzle_state(dimension: int) -> tuple:

@@ -7,7 +7,7 @@ from algorithms.solver import Solver
 from generators import generate_npuzzle_state
 from constants import *
 
-TIME_LIMIT = 90
+TIME_LIMIT = 60
 
 
 def handle_timeout(signum, frame):
