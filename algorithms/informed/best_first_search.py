@@ -23,6 +23,10 @@ class BestFirstSearch(SearchAlgorithm):
             _, node = heapq.heappop(frontier)
             if problem.is_goal(node.state):
                 return node
+
+            if node.state in reached and node.path_cost > reached[node.state].path_cost:
+                continue
+
             for child in node.expand(problem):
                 if child.state not in reached or child.path_cost < reached[child.state].path_cost:
                     reached[child.state] = child
