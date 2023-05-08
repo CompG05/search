@@ -57,6 +57,7 @@ NQUEENS = "nqueens"
 ROMANIA = "romania"
 
 problems = [NPUZZLE, NQUEENS, ROMANIA]
+invertible_problems = [NPUZZLE, ROMANIA]
 
 # npuzzle heuristics
 WRONG_TILES = "wrong_tiles"

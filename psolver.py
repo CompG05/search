@@ -37,13 +37,19 @@ def benchmark(problem, initial_states):
     signal.signal(signal.SIGALRM, handle_timeout)
 
     result = []
-    tests = ((len(uninformed_algorithms.keys())) + len(informed_algorithms.keys()) * len(heuristics[problem])) * len(
-        initial_states)
+    n_uninformed = len(uninformed_algorithms.keys())
+    n_informed = len(informed_algorithms.keys())
+    n_heuristics = len(heuristics[problem])
+    n_states = len(initial_states)
+
+    tests = (n_uninformed + n_informed * n_heuristics) * n_states - (problem not in invertible_problems) * n_states
     iteration = 0
 
     print(f"0/{tests}")
 
     for algorithm in uninformed_algorithms:
+        if problem not in invertible_problems and algorithm == BIDIRECTIONAL:
+            pass
         for initial_state in initial_states:
             solver = InstrumentedSolver(problem, initial_state, algorithm, None)
             signal.alarm(TIME_LIMIT)
