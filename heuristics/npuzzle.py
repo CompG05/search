@@ -35,9 +35,13 @@ class NPuzzleHeuristic:
 
             i_current_pos = board.index(i)
             i_current_row = i_current_pos / dim
-            i_current_col = i_current_pos / dim
+            i_current_col = i_current_pos % dim
 
-            manhattan_distance += abs(i_goal_row - i_current_row) + abs(i_goal_col - i_current_col)
+            v_diff = abs(i_goal_row - i_current_row)
+            h_diff = abs(i_goal_col - i_current_col)
+
+            manhattan_distance += v_diff + h_diff - (v_diff != 0 != h_diff)
+            
         return manhattan_distance
 
     @staticmethod
