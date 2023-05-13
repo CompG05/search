@@ -71,6 +71,9 @@ N_CONFLICTS = "n_conflicts"
 # romania heuristic
 LINEAR_DISTANCE = "linear_distance"
 
+# knapsack heuristic
+ACCUM_VALUE = "accumulated_value"
+
 heuristics = {
     NPUZZLE: [WRONG_TILES, MANHATTAN_DISTANCE, GASCHNIG_DISTANCE, WRONG_ROW_COL],
     NQUEENS: [N_CONFLICTS],

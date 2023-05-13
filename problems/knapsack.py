@@ -45,24 +45,10 @@ class KnapsackState(State):
         return hash((self.data, self.weight, self.value, self.sack_cap))
 
 
-class KnapsackAction(Action):
+class PutIn(Action):
     def __init__(self, item: int):
         self.item: int = item
         super().__init__(1)
-
-    def execute(self, state: KnapsackState) -> KnapsackState:
-        raise NotImplementedError
-
-    def __str__(self):
-        raise NotImplementedError
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.item == other.item
-
-
-class PutIn(KnapsackAction):
-    def __init__(self, item: int):
-        super().__init__(item)
 
     def execute(self, state: KnapsackState) -> KnapsackState:
         content: set[int] = state.data
@@ -81,27 +67,9 @@ class PutIn(KnapsackAction):
     def __hash__(self):
         return hash(self.item)
 
+    def __eq__(self, other):
+        return isinstance(other, PutIn) and self.item == other.item
 
-class TakeOut(KnapsackAction):
-    def __init__(self, item: int):
-        super().__init__(item)
-
-    def execute(self, state: KnapsackState) -> KnapsackState:
-        content: set[int] = state.data
-        content = content.copy()
-
-        content.remove(self.item)
-        return KnapsackState(content, state.weight, state.value, state.sack_cap)
-
-    def is_enabled(self, state: KnapsackState) -> bool:
-        content: set[int] = state.data
-        return self.item in content
-
-    def __str__(self):
-        return f"O{self.item}"
-
-    def __hash__(self):
-        return -hash(self.item)
 
 
 class KnapsackProblem(Problem):
@@ -114,12 +82,11 @@ class KnapsackProblem(Problem):
         self.value = values
         self.sack_cap = sack_cap
         self.items = set([i for i in range(len(weights))])
-        self.actions = [action(i) for i in self.items
-                        for action in (PutIn, TakeOut)]
+        self.actions = [PutIn(i) for i in self.items]
         super().__init__(state)
 
     def is_goal(self, state) -> bool:
         return False
 
-    def enabled_actions(self, state: KnapsackState) -> list[KnapsackAction]:
+    def enabled_actions(self, state: KnapsackState) -> list[PutIn]:
         return [action for action in self.actions if action.is_enabled(state)]
