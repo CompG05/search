@@ -4,7 +4,7 @@ from problems.knapsack import PutIn, KnapsackState, KnapsackProblem
 
 #          0   1   2   3   4   5   6
 weights = [5, 10, 30, 15, 40, 25, 50]
-values = [1, 2, 7, 3, 9, 6, 12]
+values =  [1,  2,  7,  3,  9,  6, 12]
 cap = 75
 
 
