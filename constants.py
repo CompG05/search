@@ -55,6 +55,7 @@ informed_algorithms = {
 NPUZZLE = "npuzzle"
 NQUEENS = "nqueens"
 ROMANIA = "romania"
+KNAPSACK = "knapsack"
 
 problems = [NPUZZLE, NQUEENS, ROMANIA]
 invertible_problems = [NPUZZLE, ROMANIA]
@@ -67,6 +68,7 @@ WRONG_ROW_COL = "wrong_row_col"
 
 # nqueens heuristic
 N_CONFLICTS = "n_conflicts"
+INVERSE_N_CONFLICTS = "inverse_n_conflicts"
 
 # romania heuristic
 LINEAR_DISTANCE = "linear_distance"
@@ -78,6 +80,7 @@ heuristics = {
     NPUZZLE: [WRONG_TILES, MANHATTAN_DISTANCE, GASCHNIG_DISTANCE, WRONG_ROW_COL],
     NQUEENS: [N_CONFLICTS],
     ROMANIA: [LINEAR_DISTANCE],
+    KNAPSACK: [ACCUM_VALUE],
 }
 
 # Romania problem
