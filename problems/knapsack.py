@@ -59,7 +59,7 @@ class PutIn(Action):
 
     def is_enabled(self, state: KnapsackState) -> bool:
         content: set[int] = state.data
-        return state.sack_weight + state.weight[self.item] < state.sack_cap and self.item not in content
+        return state.sack_weight + state.weight[self.item] <= state.sack_cap and self.item not in content
 
     def __str__(self):
         return f"I{self.item}"

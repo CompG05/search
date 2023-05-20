@@ -9,6 +9,8 @@ class NQueensHeuristic:
     def create(self, heuristic: str) -> Callable[[Node], float]:
         if heuristic.lower() == N_CONFLICTS:
             return self.n_conflicts
+        if heuristic.lower() == INVERSE_N_CONFLICTS:
+            return lambda n: -self.n_conflicts(n)
         else:
             raise ValueError("Heuristic not found")
 

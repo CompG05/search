@@ -71,3 +71,4 @@ class NQueensProblem(Problem):
     def enabled_actions(self, state: NQueensState) -> list[Action]:
         return [NQueensAction(column, new_row) for column in range(state.dimension)
                 for new_row in range(state.dimension) if new_row != state.data[column]]
+        # return [NQueensAction(column, (state.data[column] + i) % state.dimension) for column in range(state.dimension) for i in (1, -1)]

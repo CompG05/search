@@ -11,6 +11,7 @@ class KnapsackHeuristic:
 
     @staticmethod
     def accumulated_value(node: Node) -> float:
-        sack_content: set[int] = node.state.data
-        value: list[float] = node.state.value
-        return sum([value[i] for i in sack_content])
+        return node.state.sack_value
+        # sack_content: set[int] = node.state.data
+        # value: list[float] = node.state.value
+        # return sum([value[i] for i in sack_content])
