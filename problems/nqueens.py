@@ -1,6 +1,7 @@
 import math
+import random
 
-from problems.problem import Problem, State, Action
+from problems.problem import Problem, State, Action, StateFactory
 
 
 class NQueensState(State):
@@ -40,6 +41,15 @@ class NQueensState(State):
         return str(self.data)
 
 
+class NQueensStateFactory(StateFactory):
+    def __init__(self, dimension: int):
+        super().__init__()
+        self.dimension = dimension
+
+    def random(self):
+        state = tuple(random.randrange(self.dimension) for _ in range(self.dimension))
+        return NQueensState(state)
+
 class NQueensAction(Action):
     def __init__(self, column: int, new_row: int):
         super().__init__()
@@ -67,6 +77,7 @@ class NQueensProblem(Problem):
         if isinstance(initial, tuple):
             initial = NQueensState(initial)
         super().__init__(initial)
+        self.state_factory = NQueensStateFactory(initial.dimension)
 
     def enabled_actions(self, state: NQueensState) -> list[Action]:
         return [NQueensAction(column, new_row) for column in range(state.dimension)

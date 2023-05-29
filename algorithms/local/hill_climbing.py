@@ -1,9 +1,9 @@
 import heapq
 import random
+import sys
 from typing import Callable, Optional
 
 from algorithms.search_algorithm import SearchAlgorithm, Node
-from factories.state_factory import StateFactory
 from problems.problem import Problem
 
 
@@ -12,7 +12,7 @@ class HillClimbing(SearchAlgorithm):
         self.heuristic = heuristic
         super().__init__()
 
-    def search(self, problem: Problem) -> Node | None:
+    def search(self, problem: Problem) -> Node:
         current: Node = Node(problem.initial_state)
 
         while True:
@@ -33,16 +33,29 @@ class HillClimbingSideMovements(SearchAlgorithm):
         self.k = k
         super().__init__()
 
-    def search(self, problem: Problem) -> Optional[Node]:
+    def search(self, problem: Problem) -> Node:
         current: Node = Node(problem.initial_state)
         current_value = self.heuristic(current)
         current_k = self.k
 
         while True:
-            neighbors = [(n, self.heuristic(n)) for n in current.expand(problem)]
+            neighbors = []
+            best_neighbor = None
+            best_neighbor_value = -sys.float_info.max
+            best_neighbors = []
+
+            for n in current.expand(problem):
+                neighbors.append(n)
+                v = self.heuristic(n)
+                if v > best_neighbor_value:
+                    best_neighbor_value = v
+                    best_neighbor = n
+                    best_neighbors = [n]
+                elif v == best_neighbor_value:
+                    best_neighbors.append(n)
+
             if not neighbors:
                 return current
-            (best_neighbor, best_neighbor_value) = max(neighbors, key=(lambda p: p[1]))
 
             if best_neighbor_value < current_value or best_neighbor_value == current_value and current_k == 0:
                 return current
@@ -51,8 +64,7 @@ class HillClimbingSideMovements(SearchAlgorithm):
 
             if best_neighbor_value == current_value:
                 current_k -= 1
-                best_value_neighbors = [n for (n, v) in neighbors if v == best_neighbor_value]
-                current = random.choice(best_value_neighbors)
+                current = random.choice(best_neighbors)
             else:
                 current_k = self.k
 
@@ -60,14 +72,20 @@ class HillClimbingSideMovements(SearchAlgorithm):
 
 
 class RandomRestartHillClimbing(SearchAlgorithm):
-    def __init__(self, problem_name: str, heuristic: Callable[[Node], float]):
-        self.problem_name = problem_name
+    def __init__(self, heuristic: Callable[[Node], float], exhaustive: bool = True, max_iterations: int = 50):
         self.heuristic = heuristic
+        self.exhaustive = exhaustive
+        self.max_iterations = max_iterations
         super().__init__()
 
-    def search(self, problem: Problem) -> Optional[Node]:
-        initial_state = problem.initial_state
-        state_factory = problem.initial_state_factory #StateFactory(self.problem_name, state=initial_state)
+    def search(self, problem: Problem) -> Node:
+        if self.exhaustive:
+            return self.exhaustive_search(problem)
+        else:
+            return self.non_exhaustive_search(problem)
+
+    def exhaustive_search(self, problem: Problem) -> Node:
+        state_factory = problem.state_factory
         hc = HillClimbing(self.heuristic)
 
         solution = hc.search(problem)
@@ -76,5 +94,19 @@ class RandomRestartHillClimbing(SearchAlgorithm):
             problem.initial_state = state_factory.random()
             solution = hc.search(problem)
 
-        problem.initial_state = initial_state
         return solution
+
+    def non_exhaustive_search(self, problem: Problem) -> Node:
+        initial_state = problem.initial_state
+        state_factory = problem.state_factory
+        hc = HillClimbing(self.heuristic)
+
+        solutions = [hc.search(problem)]
+
+        while not solutions[-1].state.is_goal() and len(solutions) < self.max_iterations:
+            problem.initial_state = state_factory.random()
+            solutions.append(hc.search(problem))
+
+        problem.initial_state = initial_state
+        return max(solutions, key=(lambda n: self.heuristic(n)))
+

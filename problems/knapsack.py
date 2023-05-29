@@ -1,4 +1,6 @@
-from problems.problem import Problem, Action, State
+import random
+
+from problems.problem import Problem, Action, State, StateFactory
 
 
 class KnapsackState(State):
@@ -28,6 +30,8 @@ class KnapsackState(State):
     def is_valid(self) -> bool:
         if len(self.weight) != len(self.value):
             return False
+        if self.sack_weight > self.sack_cap:
+            return False
         for i in self.data:
             if i not in range(len(self.weight)):
                 return False
@@ -43,6 +47,29 @@ class KnapsackState(State):
 
     def __hash__(self):
         return hash((self.data, self.weight, self.value, self.sack_cap))
+
+
+class KnapsackStateFactory(StateFactory):
+    def __init__(self, weights: list[float], values: list[float], sack_cap: int):
+        super().__init__()
+        self.weights = weights
+        self.values = values
+        self.sack_cap = sack_cap
+
+    def random(self) -> KnapsackState:
+        content = set()
+        cap = random.randint(0, self.sack_cap)
+        items = list(range(len(self.weights)))
+        random.shuffle(items)
+        cum_weight = 0
+
+        item = items.pop()
+        while items and cum_weight + self.weights[item] <= cap:
+            content.add(item)
+            cum_weight += self.weights[item]
+            item = items.pop()
+
+        return KnapsackState(content, self.weights, self.values, self.sack_cap)
 
 
 class PutIn(Action):
@@ -76,7 +103,7 @@ class KnapsackProblem(Problem):
     def __init__(self, content: set[int], weights: list[float], values: list[float], sack_cap: int):
         state = KnapsackState(content, weights, values, sack_cap)
         if not state.is_valid():
-            raise ValueError("Either the content is not valid or lists sizes don't match, pelotudo")
+            raise ValueError("Either the content is not valid or lists sizes don't match")
 
         self.weight = weights
         self.value = values
@@ -84,6 +111,8 @@ class KnapsackProblem(Problem):
         self.items = set([i for i in range(len(weights))])
         self.actions = [PutIn(i) for i in self.items]
         super().__init__(state)
+        self.state_factory = KnapsackStateFactory(weights, values, sack_cap)
+
 
     def is_goal(self, state) -> bool:
         return False

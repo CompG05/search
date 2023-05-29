@@ -36,12 +36,16 @@ class InvertibleAction(Action):
     def inverse(self) -> 'InvertibleAction':
         raise NotImplementedError
 
+class StateFactory:
+    def random(self):
+        raise NotImplementedError
 
 class Problem:
     """Abstract class for a formal representation of a search problem"""
 
     def __init__(self, initial):
         self.initial_state = initial
+        self.state_factory = StateFactory()
 
     def is_goal(self, state) -> bool:
         return state.is_goal()
