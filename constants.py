@@ -43,7 +43,7 @@ uninformed_algorithms = {
 
 # informed algorithms
 
-GREEDY_BEST_FIRST = "greedy_best_frist"
+GREEDY_BEST_FIRST = "greedy_best_first"
 A_STAR = "a_star"
 
 informed_algorithms = {
