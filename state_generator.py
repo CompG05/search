@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 from algorithms.solver import Solver
 from generators import *
@@ -19,7 +20,6 @@ def depth(s, problem):
     if s in cache:
         return cache[s]
 
-    heuristic = WRONG_ROW_COL if problem == NPUZZLE else N_CONFLICTS
     if problem == NPUZZLE:
         heuristic = WRONG_ROW_COL
     elif problem == NQUEENS:
@@ -30,7 +30,11 @@ def depth(s, problem):
         raise ValueError("Invalid problem")
 
     solver = Solver(problem, s, A_STAR, heuristic)
+    bef = time.time()
     solution = solver.solve()
+    aft = time.time()
+    print("%.2f s" % (aft - bef))
+    print(solution.final_state)
     cache[s] = solution.depth
     return solution.depth
 
@@ -104,6 +108,7 @@ def main():
 
         # half of states are random
         states = [generators[problem](dimension) for _ in range(int(num_states / 2))]
+        print("|" * int(num_states/2))
 
         # the rest are the most difficult of a sample -evaluated by A* (Wrong_row_col for npuzzle)/(N_conflicts for
         # nqueens)-
@@ -124,6 +129,7 @@ def main():
         return
 
     hard_states.sort(key=lambda s: depth(s, problem), reverse=True)
+    print("")
     hard_states = hard_states[:remaining]
 
     if file_name is None:

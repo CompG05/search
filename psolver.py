@@ -30,49 +30,34 @@ def read_states(input_file, problem):
     return states
 
 
-def benchmark(problem, initial_states):
+def benchmark(problem, algorithm, initial_states):
     """Return a list of solutions"""
     print("Testing algorithms...")
 
     signal.signal(signal.SIGALRM, handle_timeout)
 
     result = []
-    n_uninformed = len(uninformed_algorithms.keys())
-    n_informed = len(informed_algorithms.keys())
-    n_heuristics = len(heuristics[problem])
+    n_heuristics = (len(heuristics[problem]) * (algorithm in informed_algorithms)) or 1
     n_states = len(initial_states)
 
-    tests = (n_uninformed + n_informed * n_heuristics) * n_states - (problem not in invertible_problems) * n_states
+    tests = n_heuristics * n_states
     iteration = 0
 
     print(f"0/{tests}")
 
-    for algorithm in uninformed_algorithms:
-        if problem not in invertible_problems and algorithm == BIDIRECTIONAL:
-            pass
+    h = heuristics[problem] if algorithm in informed_algorithms else [None]
+
+    for heuristic in h:
         for initial_state in initial_states:
-            solver = InstrumentedSolver(problem, initial_state, algorithm, None)
+            solver = InstrumentedSolver(problem, initial_state, algorithm, heuristic)
             signal.alarm(TIME_LIMIT)
             try:
                 solution = solver.solve()
             except TimeoutError:
-                solution = Solution.not_found(algorithm, None, initial_state)
+                solution = Solution.not_found(algorithm, heuristic, initial_state)
             iteration += 1
             print(f"{iteration}/{tests}")
             result.append(solution)
-
-    for algorithm in informed_algorithms:
-        for initial_state in initial_states:
-            for heuristic in heuristics[problem]:
-                solver = InstrumentedSolver(problem, initial_state, algorithm, heuristic)
-                signal.alarm(TIME_LIMIT)
-                try:
-                    solution = solver.solve()
-                except TimeoutError:
-                    solution = Solution.not_found(algorithm, heuristic, initial_state)
-                iteration += 1
-                print(f"{iteration}/{tests}")
-                result.append(solution)
 
     return result
 
@@ -114,10 +99,15 @@ def main():
                         metavar="problem",
                         help="problem to solve")
 
+    parser.add_argument("algorithm",
+                        choices=list(uninformed_algorithms.keys()) + list(informed_algorithms.keys()),
+                        metavar="algorithm",
+                        help="algorithm to use")
+
     args = parser.parse_args(sys.argv[1:])
 
     initial_states = read_states(args.input_file, args.problem)
-    result = benchmark(args.problem, initial_states)
+    result = benchmark(args.problem, args.algorithm, initial_states)
     write_report(result, args.output_file)
     print("Finished!")
 
