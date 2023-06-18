@@ -6,11 +6,18 @@ from algorithms.instrumented_solver import InstrumentedSolver, InstrumentedSolut
 from algorithms.solver import Solution
 from constants import *
 
-TIME_LIMIT = 50
+TIME_LIMIT = 90
 
 
 def handle_timeout(signum, frame):
     raise TimeoutError
+
+
+def print_progress(iteration, total):
+    length = 60
+    filled_len = length * iteration // total
+    bar = "[" + "#" * filled_len + "-" * (length - filled_len) + "]"
+    print(f"\r{bar} {iteration}/{total}", end="\r")
 
 
 def read_simple_tuple(s: str, problem) -> tuple:
@@ -23,7 +30,6 @@ def read_simple_tuple(s: str, problem) -> tuple:
 def read_states(input_file, problem):
     """Convert a csv file into a list of tuples."""
     states = []
-    print("Parsing input...")
     with open(input_file, "r") as f:
         for line in f:
             states.append(read_simple_tuple(line, problem))
@@ -32,8 +38,6 @@ def read_states(input_file, problem):
 
 def benchmark(problem, algorithm, initial_states):
     """Return a list of solutions"""
-    print("Testing algorithms...")
-
     signal.signal(signal.SIGALRM, handle_timeout)
 
     result = []
@@ -43,7 +47,7 @@ def benchmark(problem, algorithm, initial_states):
     tests = n_heuristics * n_states
     iteration = 0
 
-    print(f"0/{tests}")
+    print_progress(iteration, tests)
 
     h = heuristics[problem] if algorithm in informed_algorithms else [None]
 
@@ -56,15 +60,16 @@ def benchmark(problem, algorithm, initial_states):
             except TimeoutError:
                 solution = Solution.not_found(algorithm, heuristic, initial_state)
             iteration += 1
-            print(f"{iteration}/{tests}")
+            print_progress(iteration, tests)
             result.append(solution)
+
+    print()
 
     return result
 
 
 def write_report(result, output_file):
     """Write the list of solutions to the output file (or stdout)"""
-    print("Writing report...")
     buffer = open(output_file, "w") if output_file else sys.stdout
     buffer.write(InstrumentedSolution.csv_header() + "\n")
     for solution in result:
@@ -109,7 +114,6 @@ def main():
     initial_states = read_states(args.input_file, args.problem)
     result = benchmark(args.problem, args.algorithm, initial_states)
     write_report(result, args.output_file)
-    print("Finished!")
 
 
 if __name__ == "__main__":
