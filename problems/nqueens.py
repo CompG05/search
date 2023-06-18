@@ -41,33 +41,33 @@ class NQueensState(State):
 
 
 class NQueensAction(Action):
-    def __init__(self, column: int, delta: int):
+    def __init__(self, column: int, new_row: int):
         super().__init__()
         self.column = column
-        self.delta = delta
+        self.new_row = new_row
 
     def execute(self, state: NQueensState) -> NQueensState:
-        return state.move_queen(self.column, self.delta)
+        return state.move_queen(self.column, self.new_row)
 
     def is_enabled(self, state: NQueensState) -> bool:
         return True
 
     def __hash__(self):
-        return hash((self.column, self.delta))
+        return hash((self.column, self.new_row))
 
     def __eq__(self, other):
-        return isinstance(other, NQueensAction) and self.column == other.column and self.delta == other.delta
+        return isinstance(other, NQueensAction) and self.column == other.column and self.new_row == other.new_row
 
     def __repr__(self):
-        return "q" + str(self.column) + "++"
+        return f"col[{self.column}]->row[{self.new_row}]"
 
 
 class NQueensProblem(Problem):
     def __init__(self, initial: tuple | NQueensState):
         if isinstance(initial, tuple):
             initial = NQueensState(initial)
-        self.actions = [NQueensAction(column, 1) for column in range(initial.dimension)]
         super().__init__(initial)
 
     def enabled_actions(self, state: NQueensState) -> list[Action]:
-        return self.actions
+        return [NQueensAction(column, new_row) for column in range(state.dimension)
+                for new_row in range(state.dimension) if new_row != state.data[column]]
