@@ -30,11 +30,11 @@ class NPuzzleHeuristic:
         dim = state.dimension
         manhattan_distance = 0
         for i in range(0, len(board)):  # i indicates the position where piece i should be in the goal state
-            i_goal_row = i / dim
+            i_goal_row = i // dim
             i_goal_col = i % dim
 
             i_current_pos = board.index(i)
-            i_current_row = i_current_pos / dim
+            i_current_row = i_current_pos // dim
             i_current_col = i_current_pos % dim
 
             v_diff = abs(i_goal_row - i_current_row)
@@ -73,11 +73,11 @@ class NPuzzleHeuristic:
         t = state.data
 
         for i in range(len(t)):
-            current_row = i / dim
+            current_row = i // dim
             current_col = i % dim
 
             tile = t[i]
-            actual_row = tile / dim
+            actual_row = tile // dim
             actual_col = tile % dim
 
             if current_row != actual_row:
