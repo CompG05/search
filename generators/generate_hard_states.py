@@ -22,7 +22,7 @@ def nonstop_states(filename, dimension: int):
 
     while True:
         state = generate_npuzzle_state(dimension)
-        solver = Solver(NPUZZLE, state, A_STAR, WRONG_ROW_COL)
+        solver = Solver(NPUZZLE, state, A_STAR, MANHATTAN_DISTANCE)
 
         signal.alarm(TIME_LIMIT)
         try:

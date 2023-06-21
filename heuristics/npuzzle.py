@@ -40,6 +40,7 @@ class NPuzzleHeuristic:
             v_diff = abs(i_goal_row - i_current_row)
             h_diff = abs(i_goal_col - i_current_col)
 
+            #subtract one to not add corner twice
             manhattan_distance += v_diff + h_diff - (v_diff != 0 != h_diff)
             
         return manhattan_distance
@@ -59,7 +60,7 @@ class NPuzzleHeuristic:
                         h += 1
                         break
             else:  # blank is not in its position
-                pos = s.index(blank_index)
+                pos = s.index(blank_index)   # where is the number that goes in blank_index?
                 s[blank_index], s[pos] = s[pos], s[blank_index]
                 h += 1
 
@@ -73,16 +74,16 @@ class NPuzzleHeuristic:
         t = state.data
 
         for i in range(len(t)):
-            current_row = i // dim
-            current_col = i % dim
+            goal_row = i // dim
+            goal_col = i % dim
 
-            tile = t[i]
+            tile = t.index(i)
             actual_row = tile // dim
             actual_col = tile % dim
 
-            if current_row != actual_row:
+            if goal_row != actual_row:
                 h += 1
-            if current_col != actual_col:
+            if goal_col != actual_col:
                 h += 1
 
         return h

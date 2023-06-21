@@ -30,7 +30,7 @@ class NQueensState(State):
     def move_queen(self, column: int, delta: int) -> 'NQueensState':
         """Returns a new state with the column-nth queen moved by delta"""
         board = list(self.data)
-        board[column] = (board[column] + delta) % self.dimension
+        board[column] = delta
         return NQueensState(tuple(board))
 
     def is_valid(self):

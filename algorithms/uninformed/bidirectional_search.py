@@ -11,10 +11,17 @@ def join_nodes(d: str, node: Node, other_node: Node):
     else:
         f_node, b_node = other_node, node
 
+# (init) --a1-> (e2) --a2-> (e3) --a3-> (f_node)
+                                      # (b_node) <-a6-- (e5) <-a5-- (e4) <-a4-- (goal)
+
+#Resultado retornar un nodo goal de manera tal que su path sea el siguiente:
+# (init) --a1-> (e2) --a2-> (e3) --a3-> (f_node) --> (e5) --> (e4) --> (goal)
+
     # the first node has the same state as f_node
     b_path = list(reversed(b_node.path()))[1:]
     last_node = f_node
     last_action = b_node.action
+
 
     for n in b_path:
         last_action = last_action.inverse()
