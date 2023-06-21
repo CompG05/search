@@ -1,35 +1,35 @@
 algorithm,heuristic,solution found,depth,initial_state,final_state,action_sequence,path_cost,time (ms), nodes, memory (Kb)
 iterative_deepening,None,False,None,"(1, 6, 6, 1, 2, 5, 3, 5)","None","None",None
-iterative_deepening,None,True,4,"(3, 1, 5, 0, 5, 0, 7, 7)","(4, 1, 5, 0, 6, 3, 7, 2)","[col[7]->row[3], col[5]->row[3], col[4]->row[1], col[0]->row[1]]",4,15388.99278640747,777617,146.126
+iterative_deepening,None,True,4,"(3, 1, 5, 0, 5, 0, 7, 7)","(3, 1, 4, 7, 5, 0, 2, 6)","[col[7]->row[6], col[6]->row[2], col[3]->row[7], col[2]->row[4]]",4,4323.882102966309,218961,146.087
 iterative_deepening,None,False,None,"(0, 5, 6, 5, 6, 2, 3, 3)","None","None",None
-iterative_deepening,None,True,4,"(6, 3, 1, 7, 6, 7, 3, 1)","(6, 3, 1, 7, 5, 0, 2, 4)","[col[7]->row[3], col[6]->row[7], col[5]->row[1], col[4]->row[7]]",4,16454.61392402649,920921,106.800
+iterative_deepening,None,True,4,"(6, 3, 1, 7, 6, 7, 3, 1)","(6, 3, 1, 7, 5, 0, 2, 4)","[col[7]->row[4], col[6]->row[2], col[5]->row[0], col[4]->row[5]]",4,13223.979473114014,754937,106.800
 iterative_deepening,None,False,None,"(6, 7, 0, 7, 0, 1, 2, 0)","None","None",None
 iterative_deepening,None,False,None,"(6, 2, 1, 6, 3, 1, 7, 6)","None","None",None
-iterative_deepening,None,True,4,"(7, 6, 0, 5, 6, 0, 6, 7)","(7, 2, 0, 5, 1, 4, 6, 3)","[col[7]->row[4], col[5]->row[4], col[4]->row[3], col[1]->row[4]]",4,10828.17554473877,595505,118.616
-iterative_deepening,None,True,4,"(3, 2, 7, 7, 0, 5, 5, 6)","(5, 2, 4, 7, 0, 3, 1, 6)","[col[6]->row[4], col[5]->row[6], col[2]->row[5], col[0]->row[2]]",4,32748.18778038025,1841449,105.952
+iterative_deepening,None,True,4,"(7, 6, 0, 5, 6, 0, 6, 7)","(7, 2, 0, 5, 1, 4, 6, 3)","[col[7]->row[3], col[5]->row[4], col[4]->row[1], col[1]->row[2]]",4,13882.392406463623,774425,118.824
+iterative_deepening,None,True,4,"(3, 2, 7, 7, 0, 5, 5, 6)","(3, 1, 7, 5, 0, 2, 4, 6)","[col[6]->row[4], col[5]->row[2], col[3]->row[5], col[1]->row[1]]",4,32517.229557037354,1850633,105.952
 iterative_deepening,None,False,None,"(2, 1, 2, 6, 5, 1, 7, 7)","None","None",None
 iterative_deepening,None,False,None,"(0, 0, 0, 0, 6, 1, 4, 5)","None","None",None
-iterative_deepening,None,True,4,"(6, 2, 1, 1, 7, 1, 0, 0)","(5, 2, 6, 1, 7, 4, 0, 3)","[col[7]->row[3], col[5]->row[3], col[2]->row[5], col[0]->row[7]]",4,17232.64217376709,957041,107.120
-iterative_deepening,None,False,None,"(7, 1, 3, 6, 6, 6, 6, 2)","None","None",None
+iterative_deepening,None,True,4,"(6, 2, 1, 1, 7, 1, 0, 0)","(5, 2, 6, 1, 7, 4, 0, 3)","[col[7]->row[3], col[5]->row[4], col[2]->row[6], col[0]->row[5]]",4,17299.57604408264,953793,107.120
+iterative_deepening,None,True,4,"(7, 1, 3, 6, 6, 6, 6, 2)","(7, 1, 3, 0, 6, 4, 2, 5)","[col[7]->row[5], col[6]->row[2], col[5]->row[4], col[3]->row[0]]",4,9977.93173789978,575905,105.952
 iterative_deepening,None,False,None,"(3, 4, 5, 5, 5, 3, 0, 1)","None","None",None
 iterative_deepening,None,False,None,"(6, 2, 2, 6, 3, 0, 4, 7)","None","None",None
-iterative_deepening,None,False,None,"(3, 5, 6, 5, 6, 0, 1, 3)","None","None",None
-iterative_deepening,None,True,4,"(0, 2, 7, 2, 1, 2, 4, 1)","(3, 5, 7, 2, 0, 6, 4, 1)","[col[5]->row[4], col[4]->row[7], col[1]->row[3], col[0]->row[3]]",4,59623.443365097046,3291625,118.728
+iterative_deepening,None,True,4,"(3, 5, 6, 5, 6, 0, 1, 3)","(3, 5, 7, 1, 6, 0, 2, 4)","[col[7]->row[4], col[6]->row[2], col[3]->row[1], col[2]->row[7]]",4,13386.107683181763,758857,117.928
+iterative_deepening,None,True,4,"(0, 2, 7, 2, 1, 2, 4, 1)","(3, 5, 7, 2, 0, 6, 4, 1)","[col[5]->row[6], col[4]->row[0], col[1]->row[5], col[0]->row[3]]",4,51720.48044204712,2953049,105.952
 iterative_deepening,None,False,None,"(7, 1, 1, 6, 4, 2, 1, 6)","None","None",None
-iterative_deepening,None,False,None,"(3, 4, 6, 1, 5, 4, 2, 2)","None","None",None
+iterative_deepening,None,True,4,"(3, 4, 6, 1, 5, 4, 2, 2)","(3, 6, 4, 1, 5, 0, 2, 7)","[col[7]->row[7], col[5]->row[0], col[2]->row[4], col[1]->row[6]]",4,4327.713251113892,248193,106.992
 iterative_deepening,None,False,None,"(4, 5, 1, 2, 1, 6, 6, 6)","None","None",None
-iterative_deepening,None,False,None,"(7, 0, 7, 5, 2, 7, 2, 5)","None","None",None
+iterative_deepening,None,True,4,"(7, 0, 7, 5, 2, 7, 2, 5)","(4, 0, 7, 5, 2, 6, 1, 3)","[col[7]->row[3], col[6]->row[1], col[5]->row[6], col[0]->row[4]]",4,13453.803539276123,757793,106.800
 iterative_deepening,None,False,None,"(2, 2, 1, 1, 5, 1, 7, 7)","None","None",None
-iterative_deepening,None,True,4,"(6, 5, 2, 5, 6, 0, 1, 4)","(6, 0, 2, 7, 5, 3, 1, 4)","[col[5]->row[3], col[4]->row[7], col[3]->row[2], col[1]->row[3]]",4,62179.56733703613,3469649,118.904
+iterative_deepening,None,True,4,"(6, 5, 2, 5, 6, 0, 1, 4)","(3, 5, 7, 1, 6, 0, 2, 4)","[col[6]->row[2], col[3]->row[1], col[2]->row[7], col[0]->row[3]]",4,43099.30205345154,2435273,119.400
 iterative_deepening,None,False,None,"(1, 3, 7, 0, 3, 5, 3, 3)","None","None",None
 iterative_deepening,None,False,None,"(4, 0, 1, 4, 2, 3, 5, 5)","None","None",None
-iterative_deepening,None,True,4,"(2, 2, 1, 0, 1, 0, 7, 2)","(2, 5, 1, 6, 4, 0, 7, 3)","[col[7]->row[1], col[4]->row[3], col[3]->row[6], col[1]->row[3]]",4,21341.55821800232,1157745,118.032
+iterative_deepening,None,True,4,"(2, 2, 1, 0, 1, 0, 7, 2)","(2, 5, 1, 6, 4, 0, 7, 3)","[col[7]->row[3], col[4]->row[4], col[3]->row[6], col[1]->row[5]]",4,17479.995012283325,975745,106.992
 iterative_deepening,None,False,None,"(6, 0, 5, 6, 2, 0, 0, 2)","None","None",None
 iterative_deepening,None,False,None,"(1, 1, 5, 5, 7, 7, 1, 7)","None","None",None
 iterative_deepening,None,False,None,"(5, 7, 1, 1, 4, 3, 5, 7)","None","None",None
 iterative_deepening,None,False,None,"(3, 4, 2, 3, 5, 4, 5, 4)","None","None",None
 iterative_deepening,None,False,None,"(0, 2, 2, 6, 5, 0, 3, 7)","None","None",None
-iterative_deepening,None,True,4,"(5, 4, 3, 5, 1, 2, 7, 6)","(4, 1, 3, 5, 7, 2, 0, 6)","[col[6]->row[1], col[4]->row[6], col[1]->row[5], col[0]->row[7]]",4,43354.04467582703,2400665,119.856
+iterative_deepening,None,True,4,"(5, 4, 3, 5, 1, 2, 7, 6)","(4, 1, 3, 5, 7, 2, 0, 6)","[col[6]->row[0], col[4]->row[7], col[1]->row[1], col[0]->row[4]]",4,45678.019523620605,2576449,119.752
 iterative_deepening,None,False,None,"(3, 4, 2, 1, 7, 3, 5, 3)","None","None",None
 iterative_deepening,None,False,None,"(1, 0, 5, 2, 6, 1, 2, 1)","None","None",None
 iterative_deepening,None,False,None,"(7, 2, 7, 6, 0, 1, 7, 2)","None","None",None
@@ -39,13 +39,13 @@ iterative_deepening,None,False,None,"(6, 4, 5, 6, 0, 2, 1, 2)","None","None",Non
 iterative_deepening,None,False,None,"(0, 4, 3, 0, 1, 6, 0, 4)","None","None",None
 iterative_deepening,None,False,None,"(2, 1, 4, 3, 3, 3, 7, 0)","None","None",None
 iterative_deepening,None,False,None,"(3, 1, 5, 1, 7, 5, 4, 3)","None","None",None
-iterative_deepening,None,True,4,"(7, 4, 4, 0, 7, 4, 6, 5)","(2, 5, 3, 0, 7, 4, 6, 1)","[col[7]->row[4], col[2]->row[7], col[1]->row[1], col[0]->row[3]]",4,11812.312602996826,654249,121.360
-iterative_deepening,None,False,None,"(5, 5, 0, 0, 4, 5, 0, 6)","None","None",None
-iterative_deepening,None,True,4,"(0, 1, 3, 0, 0, 3, 5, 4)","(6, 1, 5, 2, 0, 3, 7, 4)","[col[6]->row[2], col[3]->row[2], col[2]->row[2], col[0]->row[6]]",4,40366.08076095581,2256689,106.800
+iterative_deepening,None,True,4,"(7, 4, 4, 0, 7, 4, 6, 5)","(2, 5, 3, 0, 7, 4, 6, 1)","[col[7]->row[1], col[2]->row[3], col[1]->row[5], col[0]->row[2]]",4,21740.656852722168,1200081,121.048
+iterative_deepening,None,True,4,"(5, 5, 0, 0, 4, 5, 0, 6)","(5, 2, 0, 7, 4, 1, 3, 6)","[col[6]->row[3], col[5]->row[1], col[3]->row[7], col[1]->row[2]]",4,38649.646043777466,2211385,105.952
+iterative_deepening,None,True,4,"(0, 1, 3, 0, 0, 3, 5, 4)","(6, 1, 5, 2, 0, 3, 7, 4)","[col[6]->row[7], col[3]->row[2], col[2]->row[5], col[0]->row[6]]",4,27205.795764923096,1541345,105.952
 iterative_deepening,None,False,None,"(5, 2, 3, 6, 1, 0, 3, 2)","None","None",None
 iterative_deepening,None,False,None,"(1, 0, 3, 6, 5, 0, 0, 3)","None","None",None
 iterative_deepening,None,False,None,"(2, 3, 6, 3, 0, 3, 3, 3)","None","None",None
 iterative_deepening,None,False,None,"(0, 7, 2, 7, 5, 6, 0, 1)","None","None",None
-iterative_deepening,None,False,None,"(4, 7, 2, 1, 3, 0, 5, 1)","None","None",None
-iterative_deepening,None,False,None,"(3, 7, 4, 6, 1, 4, 0, 2)","None","None",None
+iterative_deepening,None,True,4,"(4, 7, 2, 1, 3, 0, 5, 1)","(4, 2, 7, 3, 6, 0, 5, 1)","[col[4]->row[6], col[3]->row[3], col[2]->row[7], col[1]->row[2]]",4,74797.28698730469,4220161,118.000
+iterative_deepening,None,True,4,"(3, 7, 4, 6, 1, 4, 0, 2)","(3, 6, 2, 7, 1, 4, 0, 5)","[col[7]->row[5], col[3]->row[7], col[2]->row[2], col[1]->row[6]]",4,11032.403945922852,631457,107.824
 iterative_deepening,None,False,None,"(7, 2, 0, 7, 5, 7, 2, 2)","None","None",None

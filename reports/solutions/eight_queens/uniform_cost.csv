@@ -1,51 +1,51 @@
 algorithm,heuristic,solution found,depth,initial_state,final_state,action_sequence,path_cost,time (ms), nodes, memory (Kb)
 uniform_cost,None,False,None,"(1, 6, 6, 1, 2, 5, 3, 5)","None","None",None
-uniform_cost,None,True,4,"(3, 1, 5, 0, 5, 0, 7, 7)","(4, 1, 5, 0, 6, 3, 7, 2)","[col[0]->row[1], col[7]->row[3], col[4]->row[1], col[5]->row[3]]",4,35485.55827140808,3664977,823853.893
+uniform_cost,None,True,4,"(3, 1, 5, 0, 5, 0, 7, 7)","(3, 1, 4, 7, 5, 0, 2, 6)","[col[3]->row[7], col[6]->row[2], col[7]->row[6], col[2]->row[4]]",4,33761.15107536316,3468585,735945.478
 uniform_cost,None,False,None,"(0, 5, 6, 5, 6, 2, 3, 3)","None","None",None
-uniform_cost,None,True,4,"(6, 3, 1, 7, 6, 7, 3, 1)","(6, 3, 1, 7, 5, 0, 2, 4)","[col[5]->row[1], col[7]->row[3], col[4]->row[7], col[6]->row[7]]",4,9411.887407302856,1053753,894397.212
+uniform_cost,None,True,4,"(6, 3, 1, 7, 6, 7, 3, 1)","(6, 3, 1, 7, 5, 0, 2, 4)","[col[5]->row[0], col[4]->row[5], col[6]->row[2], col[7]->row[4]]",4,20667.054414749146,2242745,735944.596
 uniform_cost,None,False,None,"(6, 7, 0, 7, 0, 1, 2, 0)","None","None",None
 uniform_cost,None,False,None,"(6, 2, 1, 6, 3, 1, 7, 6)","None","None",None
-uniform_cost,None,True,4,"(7, 6, 0, 5, 6, 0, 6, 7)","(7, 2, 0, 5, 1, 4, 6, 3)","[col[4]->row[3], col[7]->row[4], col[5]->row[4], col[1]->row[4]]",4,15350.550413131714,1677481,884493.676
-uniform_cost,None,True,4,"(3, 2, 7, 7, 0, 5, 5, 6)","(5, 2, 4, 7, 0, 3, 1, 6)","[col[0]->row[2], col[5]->row[6], col[2]->row[5], col[6]->row[4]]",4,43175.336599349976,4845401,410373.316
+uniform_cost,None,True,4,"(7, 6, 0, 5, 6, 0, 6, 7)","(4, 6, 1, 5, 2, 0, 3, 7)","[col[4]->row[2], col[0]->row[4], col[6]->row[3], col[2]->row[1]]",4,43567.92616844177,4810289,750682.668
+uniform_cost,None,True,4,"(3, 2, 7, 7, 0, 5, 5, 6)","(3, 1, 7, 5, 0, 2, 4, 6)","[col[3]->row[5], col[6]->row[4], col[5]->row[2], col[1]->row[1]]",4,58797.12510108948,6623009,668281.196
 uniform_cost,None,False,None,"(2, 1, 2, 6, 5, 1, 7, 7)","None","None",None
 uniform_cost,None,False,None,"(0, 0, 0, 0, 6, 1, 4, 5)","None","None",None
-uniform_cost,None,True,4,"(6, 2, 1, 1, 7, 1, 0, 0)","(5, 2, 6, 1, 7, 4, 0, 3)","[col[2]->row[5], col[5]->row[3], col[7]->row[3], col[0]->row[7]]",4,29653.18489074707,3225881,893326.716
-uniform_cost,None,True,5,"(7, 1, 3, 6, 6, 6, 6, 2)","(4, 1, 3, 6, 2, 7, 5, 0)","[col[5]->row[1], col[7]->row[6], col[6]->row[7], col[0]->row[5], col[4]->row[4]]",5,80567.15393066406,8916041,760785.972
+uniform_cost,None,True,4,"(6, 2, 1, 1, 7, 1, 0, 0)","(5, 2, 6, 1, 7, 4, 0, 3)","[col[7]->row[3], col[5]->row[4], col[2]->row[6], col[0]->row[5]]",4,89244.20380592346,10367673,746642.220
+uniform_cost,None,True,4,"(7, 1, 3, 6, 6, 6, 6, 2)","(7, 1, 3, 0, 6, 4, 2, 5)","[col[7]->row[5], col[5]->row[4], col[3]->row[0], col[6]->row[2]]",4,47336.0230922699,5225249,597880.620
 uniform_cost,None,False,None,"(3, 4, 5, 5, 5, 3, 0, 1)","None","None",None
 uniform_cost,None,False,None,"(6, 2, 2, 6, 3, 0, 4, 7)","None","None",None
-uniform_cost,None,False,None,"(3, 5, 6, 5, 6, 0, 1, 3)","None","None",None
-uniform_cost,None,True,4,"(0, 2, 7, 2, 1, 2, 4, 1)","(3, 5, 7, 2, 0, 6, 4, 1)","[col[0]->row[3], col[4]->row[7], col[1]->row[3], col[5]->row[4]]",4,25493.74032020569,2788857,987548.476
+uniform_cost,None,True,4,"(3, 5, 6, 5, 6, 0, 1, 3)","(3, 5, 7, 1, 6, 0, 2, 4)","[col[7]->row[4], col[3]->row[1], col[2]->row[7], col[6]->row[2]]",4,32679.80170249939,3638377,754951.876
+uniform_cost,None,True,4,"(0, 2, 7, 2, 1, 2, 4, 1)","(3, 5, 7, 2, 0, 6, 4, 1)","[col[0]->row[3], col[4]->row[0], col[5]->row[6], col[1]->row[5]]",4,77331.08139038086,8706769,728016.948
 uniform_cost,None,False,None,"(7, 1, 1, 6, 4, 2, 1, 6)","None","None",None
-uniform_cost,None,False,None,"(3, 4, 6, 1, 5, 4, 2, 2)","None","None",None
+uniform_cost,None,True,4,"(3, 4, 6, 1, 5, 4, 2, 2)","(3, 6, 4, 1, 5, 0, 2, 7)","[col[2]->row[4], col[5]->row[0], col[7]->row[7], col[1]->row[6]]",4,70894.22631263733,8058905,743081.572
 uniform_cost,None,False,None,"(4, 5, 1, 2, 1, 6, 6, 6)","None","None",None
-uniform_cost,None,True,5,"(7, 0, 7, 5, 2, 7, 2, 5)","(3, 1, 7, 4, 6, 0, 2, 5)","[col[1]->row[1], col[3]->row[7], col[0]->row[4], col[5]->row[1], col[4]->row[4]]",5,64434.603691101074,7193425,887545.276
+uniform_cost,None,True,4,"(7, 0, 7, 5, 2, 7, 2, 5)","(4, 0, 7, 3, 1, 6, 2, 5)","[col[4]->row[1], col[5]->row[6], col[0]->row[4], col[3]->row[3]]",4,41216.58730506897,4429825,738427.748
 uniform_cost,None,False,None,"(2, 2, 1, 1, 5, 1, 7, 7)","None","None",None
-uniform_cost,None,True,4,"(6, 5, 2, 5, 6, 0, 1, 4)","(6, 0, 2, 7, 5, 3, 1, 4)","[col[3]->row[2], col[1]->row[3], col[4]->row[7], col[5]->row[3]]",4,26948.98247718811,2904217,881393.252
+uniform_cost,None,True,4,"(6, 5, 2, 5, 6, 0, 1, 4)","(3, 5, 7, 1, 6, 0, 2, 4)","[col[6]->row[2], col[0]->row[3], col[3]->row[1], col[2]->row[7]]",4,63642.77362823486,7152153,747278.164
 uniform_cost,None,False,None,"(1, 3, 7, 0, 3, 5, 3, 3)","None","None",None
 uniform_cost,None,False,None,"(4, 0, 1, 4, 2, 3, 5, 5)","None","None",None
-uniform_cost,None,True,4,"(2, 2, 1, 0, 1, 0, 7, 2)","(2, 5, 1, 6, 4, 0, 7, 3)","[col[7]->row[1], col[1]->row[3], col[4]->row[3], col[3]->row[6]]",4,17636.891841888428,1878913,899097.476
+uniform_cost,None,True,4,"(2, 2, 1, 0, 1, 0, 7, 2)","(2, 5, 1, 6, 4, 0, 7, 3)","[col[7]->row[3], col[1]->row[5], col[3]->row[6], col[4]->row[4]]",4,18004.450798034668,1983409,747664.388
 uniform_cost,None,False,None,"(6, 0, 5, 6, 2, 0, 0, 2)","None","None",None
 uniform_cost,None,False,None,"(1, 1, 5, 5, 7, 7, 1, 7)","None","None",None
 uniform_cost,None,False,None,"(5, 7, 1, 1, 4, 3, 5, 7)","None","None",None
 uniform_cost,None,False,None,"(3, 4, 2, 3, 5, 4, 5, 4)","None","None",None
 uniform_cost,None,False,None,"(0, 2, 2, 6, 5, 0, 3, 7)","None","None",None
-uniform_cost,None,True,4,"(5, 4, 3, 5, 1, 2, 7, 6)","(4, 1, 3, 5, 7, 2, 0, 6)","[col[0]->row[7], col[6]->row[1], col[4]->row[6], col[1]->row[5]]",4,40940.380334854126,4618321,889197.124
+uniform_cost,None,True,4,"(5, 4, 3, 5, 1, 2, 7, 6)","(4, 1, 3, 5, 7, 2, 0, 6)","[col[6]->row[0], col[1]->row[1], col[0]->row[4], col[4]->row[7]]",4,57555.29308319092,6457865,759644.812
 uniform_cost,None,False,None,"(3, 4, 2, 1, 7, 3, 5, 3)","None","None",None
 uniform_cost,None,False,None,"(1, 0, 5, 2, 6, 1, 2, 1)","None","None",None
 uniform_cost,None,False,None,"(7, 2, 7, 6, 0, 1, 7, 2)","None","None",None
 uniform_cost,None,False,None,"(6, 0, 6, 6, 4, 6, 5, 5)","None","None",None
 uniform_cost,None,False,None,"(1, 5, 6, 1, 1, 0, 0, 5)","None","None",None
-uniform_cost,None,True,5,"(6, 4, 5, 6, 0, 2, 1, 2)","(5, 2, 4, 6, 0, 3, 1, 7)","[col[1]->row[6], col[5]->row[1], col[2]->row[7], col[7]->row[5], col[0]->row[7]]",5,78543.4877872467,8795977,987473.908
+uniform_cost,None,False,None,"(6, 4, 5, 6, 0, 2, 1, 2)","None","None",None
 uniform_cost,None,False,None,"(0, 4, 3, 0, 1, 6, 0, 4)","None","None",None
 uniform_cost,None,False,None,"(2, 1, 4, 3, 3, 3, 7, 0)","None","None",None
 uniform_cost,None,False,None,"(3, 1, 5, 1, 7, 5, 4, 3)","None","None",None
-uniform_cost,None,True,4,"(7, 4, 4, 0, 7, 4, 6, 5)","(2, 5, 3, 0, 7, 4, 6, 1)","[col[0]->row[3], col[1]->row[1], col[7]->row[4], col[2]->row[7]]",4,32329.78391647339,3610153,881488.928
-uniform_cost,None,False,None,"(5, 5, 0, 0, 4, 5, 0, 6)","None","None",None
-uniform_cost,None,True,4,"(0, 1, 3, 0, 0, 3, 5, 4)","(6, 1, 5, 2, 0, 3, 7, 4)","[col[0]->row[6], col[3]->row[2], col[2]->row[2], col[6]->row[2]]",4,51157.00602531433,5687305,875514.436
+uniform_cost,None,True,4,"(7, 4, 4, 0, 7, 4, 6, 5)","(6, 1, 3, 0, 7, 4, 2, 5)","[col[0]->row[6], col[6]->row[2], col[2]->row[3], col[1]->row[1]]",4,18780.025005340576,2062481,754203.468
+uniform_cost,None,True,4,"(5, 5, 0, 0, 4, 5, 0, 6)","(5, 2, 0, 7, 4, 1, 3, 6)","[col[3]->row[7], col[5]->row[1], col[1]->row[2], col[6]->row[3]]",4,81255.28287887573,9210937,732796.044
+uniform_cost,None,True,4,"(0, 1, 3, 0, 0, 3, 5, 4)","(6, 1, 5, 2, 0, 3, 7, 4)","[col[0]->row[6], col[3]->row[2], col[6]->row[7], col[2]->row[5]]",4,86805.44757843018,9849785,735364.940
 uniform_cost,None,False,None,"(5, 2, 3, 6, 1, 0, 3, 2)","None","None",None
 uniform_cost,None,False,None,"(1, 0, 3, 6, 5, 0, 0, 3)","None","None",None
 uniform_cost,None,False,None,"(2, 3, 6, 3, 0, 3, 3, 3)","None","None",None
 uniform_cost,None,False,None,"(0, 7, 2, 7, 5, 6, 0, 1)","None","None",None
-uniform_cost,None,False,None,"(4, 7, 2, 1, 3, 0, 5, 1)","None","None",None
-uniform_cost,None,False,None,"(3, 7, 4, 6, 1, 4, 0, 2)","None","None",None
+uniform_cost,None,True,4,"(4, 7, 2, 1, 3, 0, 5, 1)","(4, 2, 7, 3, 6, 0, 5, 1)","[col[3]->row[3], col[2]->row[7], col[1]->row[2], col[4]->row[6]]",4,45064.20350074768,5000129,749442.780
+uniform_cost,None,True,4,"(3, 7, 4, 6, 1, 4, 0, 2)","(3, 6, 2, 7, 1, 4, 0, 5)","[col[3]->row[7], col[7]->row[5], col[2]->row[2], col[1]->row[6]]",4,23866.35422706604,2573705,360725.012
 uniform_cost,None,False,None,"(7, 2, 0, 7, 5, 7, 2, 2)","None","None",None
