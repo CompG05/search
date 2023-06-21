@@ -43,8 +43,7 @@ class DepthFirstSearchAcyclic(SearchAlgorithm):
             node = frontier.pop()
             if problem.is_goal(node.state):
                 return node
-            if not node.in_path(node.state):
-                frontier.extend(child for child in node.expand(problem)
-                                if not node.in_path(child.state))
+            frontier.extend(child for child in node.expand(problem)
+                            if not node.in_path(child.state) and node.state != child.state)
 
         return None

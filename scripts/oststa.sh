@@ -8,8 +8,8 @@ mkdir -p reports/solutions/romania
 
 echo "bidirectional - eight puzzle"
 python psolver.py -i reports/states/eightpuzzle.csv -o reports/solutions/eight_puzzle/bidirectional.csv npuzzle bidirectional
-# echo "bidirectional - fifteen puzzle"
-# python psolver.py -i reports/states/fifteenpuzzle.csv -o reports/solutions/fifteen_puzzle/bidirectional.csv npuzzle bidirectional
+echo "bidirectional - fifteen puzzle"
+python psolver.py -i reports/states/fifteenpuzzle.csv -o reports/solutions/fifteen_puzzle/bidirectional.csv npuzzle bidirectional
 echo "bidirectional - romania"
 python psolver.py -i reports/states/romania.csv -o reports/solutions/romania/bidirectional.csv romania bidirectional
 
@@ -23,8 +23,8 @@ do
 
   echo "$algorithm - eight puzzle"
   python psolver.py -i reports/states/eightpuzzle.csv -o reports/solutions/eight_puzzle/$algorithm.csv npuzzle $algorithm
-  # echo "$algorithm - fifteen puzzle"
-  # python psolver.py -i reports/states/fifteenpuzzle.csv -o reports/solutions/fifteen_puzzle/$algorithm.csv npuzzle $algorithm
+  echo "$algorithm - fifteen puzzle"
+  python psolver.py -i reports/states/fifteenpuzzle.csv -o reports/solutions/fifteen_puzzle/$algorithm.csv npuzzle $algorithm
 
   echo "$algorithm - romania"
   python psolver.py -i reports/states/romania.csv -o reports/solutions/romania/$algorithm.csv romania $algorithm
