@@ -35,9 +35,9 @@ def test_n_conflicts(state, expected):
 
 
 move_queen_config = [
-    (NQueensState((0, 1, 2, 3, 4, 5, 6, 7)), 5, 1, NQueensState((0, 1, 2, 3, 4, 6, 6, 7))),
+    (NQueensState((0, 1, 2, 3, 4, 5, 6, 7)), 5, 1, NQueensState((0, 1, 2, 3, 4, 1, 6, 7))),
     (NQueensState((0, 1, 2, 3, 4, 5, 6, 7)), 0, 1, NQueensState((1, 1, 2, 3, 4, 5, 6, 7))),
-    (NQueensState((0, 1, 2, 3, 4, 5, 6, 7)), 7, 1, NQueensState((0, 1, 2, 3, 4, 5, 6, 0))),
+    (NQueensState((0, 1, 2, 3, 4, 5, 6, 7)), 7, 1, NQueensState((0, 1, 2, 3, 4, 5, 6, 1))),
 ]
 
 
